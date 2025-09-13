@@ -1,0 +1,16 @@
+# Ignore large input/output files
+samples/
+edm4hep/
+ntuples/
+plots/
+# Ignore large helper files
+data/all_files.txt
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# OS-specific
+.DS_Store
