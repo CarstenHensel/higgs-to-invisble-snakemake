@@ -1,0 +1,29 @@
+# config.yaml
+
+datasets:
+  Pqqh:
+    version: rv02-02-01
+    path: samples/Pqqh.slcio
+    cross_section: 0.5
+
+  Zqq:
+    version: rv02-02-01
+    path: samples/Zqq.slcio
+    cross_section: 1.2
+
+  # Add more datasets here as needed
+  # DatasetName:
+  #   version: ...
+  #   path: samples/YourFile.slcio
+  #   cross_section: ...
+
+transformations:
+  convert:
+    script: scripts/convert_lcio.py
+    output_dir: edm4hep
+  analysis:
+    script: scripts/analysis.py
+    output_dir: ntuples
+
+helper_files:
+  all_mc: data/all_files.txt
