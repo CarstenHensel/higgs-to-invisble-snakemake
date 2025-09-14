@@ -1,5 +1,9 @@
 # config.yaml
 
+# slcio2edm4hep_validate_crawler.py
+slcio_path: "/afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples"
+slcio_conversion_options: "--dry-run"
+
 datasets:
   Pqqh:
     version: rv02-02-01
