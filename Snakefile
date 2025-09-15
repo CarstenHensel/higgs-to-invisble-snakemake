@@ -4,14 +4,16 @@ import os
 # Load config
 configfile: "config.yaml"
 
+# Include all rule files
+for rule_file in glob.glob("rules/*.smk"):
+    include: rule_file
 
 
-include: "rules/slcio_convert.smk"
-
+conversion_target = f"{config['slcio_path']}/.conversion_done"
+mc_targets = ["mc_metadata.yaml", "job_yamls"]
 
 rule all:
     input:
-        # a marker file showing conversion finished
-        f"{config['slcio_path']}/.conversion_done"
-
+        conversion_target,
+        *mc_targets
 
