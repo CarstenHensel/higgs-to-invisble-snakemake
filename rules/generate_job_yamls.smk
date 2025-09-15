@@ -7,7 +7,7 @@ rule generate_job_yamls:
     input:
         meta="mc_metadata.yaml"
     output:
-        directory="job_yamls"
+        directory("job_yamls")
     log:
         "logs/generate_job_yamls.log"
     shell:
@@ -15,3 +15,4 @@ rule generate_job_yamls:
         mkdir -p logs job_yamls
         python3 scripts/generate_job_yamls.py > {log} 2>&1
         """
+
