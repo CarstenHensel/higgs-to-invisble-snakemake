@@ -1,5 +1,6 @@
 import yaml
 import os
+import glob
 
 # Load config
 configfile: "config.yaml"
