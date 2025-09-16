@@ -3,7 +3,8 @@
 ilc_xsec_collector.py
 
 Script to extract unique production IDs from a list of ILCDirac LFNs,
-query their cross sections via dirac-ilc-get-info, and store results in a YAML file.
+query their cross sections and number of events via dirac-ilc-get-info, 
+and store results in a YAML file.
 
 Usage:
     ./ilc_xsec_collector.py -i lfns.txt -o production_info.yaml
@@ -20,7 +21,7 @@ import argparse
 # -------------------------------
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Extract production IDs and cross sections from ILCDirac LFNs."
+        description="Extract production IDs, cross sections, and number of events from ILCDirac LFNs."
     )
     parser.add_argument(
         "-i", "--input",
@@ -93,15 +94,31 @@ def main():
         cross_section_match = re.search(
             r'CrossSection\s+:\s+([\dEe\+\-\.]+)\s+fb\+/-([\dEe\+\-\.]+)fb', output
         )
+
+        # Extract NumberOfEvents
+        events_match = re.search(
+            r'NumberOfEvents\s+:\s+(\d+)', output
+        )
+
         if cross_section_match:
             xsec_value, xsec_error = cross_section_match.groups()
-            results.append({
+            entry = {
                 "ProdID": int(prod_id),
                 "Process": process_name,
                 "CrossSection_fb": float(xsec_value),
                 "CrossSectionError_fb": float(xsec_error)
-            })
-            logging.info(f"ProdID {prod_id}: CrossSection = {xsec_value} ± {xsec_error} fb")
+            }
+            if events_match:
+                entry["NumberOfEvents"] = int(events_match.group(1))
+            else:
+                logging.warning(f"Could not extract NumberOfEvents for ProdID {prod_id}")
+                entry["NumberOfEvents"] = None
+
+            results.append(entry)
+            logging.info(
+                f"ProdID {prod_id}: CrossSection = {xsec_value} ± {xsec_error} fb, "
+                f"NumberOfEvents = {entry['NumberOfEvents']}"
+            )
         else:
             logging.warning(f"Could not extract CrossSection for ProdID {prod_id}")
 
@@ -109,7 +126,7 @@ def main():
     with open(args.output, 'w') as f:
         yaml.dump(results, f, sort_keys=False)
 
-    logging.info(f"Saved cross-section info for {len(results)} productions to {args.output}")
+    logging.info(f"Saved production info for {len(results)} productions to {args.output}")
 
 # -------------------------------
 # Entry point
