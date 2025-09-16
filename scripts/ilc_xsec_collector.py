@@ -53,7 +53,7 @@ def main():
 
     # Regex to extract process and production ID from filenames
     prod_pattern = re.compile(
-        r'\.I\d{6}\.(.+?)\.n\d+_\d+\..*d_dst_(\d+)_\d+\.slcio'
+        r'\.I\d{6}\.P?(.+?)\.n\d+_\d+\..*d_dst_(\d+)_\d+\.slcio'
     )
 
     prod_dict = {}  # key: prod_id, value: process_name
