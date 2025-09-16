@@ -1,6 +1,6 @@
 process: ae_5f_zzorww_l
-cross_section_pb: 0.0
-n_events: 0
+cross_section_pb: 4.6408183e-05
+n_events: 600
 k_factor: 1.0
 path: /eos/home-c/chensel/Work/ILC/HtoInv/MC/pilot_samples/ae_5f_zzorww_l/edm4hep
 files:

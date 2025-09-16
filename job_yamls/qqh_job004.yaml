@@ -1,6 +1,6 @@
 process: qqh
-cross_section_pb: 0.0
-n_events: 0
+cross_section_pb: 0.34303023
+n_events: 8400
 k_factor: 1.0
 path: /eos/home-c/chensel/Work/ILC/HtoInv/MC/pilot_samples/qqh/edm4hep
 files:

@@ -1,6 +1,6 @@
 process: aa_2f_z_l
-cross_section_pb: 0.0
-n_events: 0
+cross_section_pb: 2044.83545
+n_events: 54000
 k_factor: 1.0
 path: /eos/home-c/chensel/Work/ILC/HtoInv/MC/pilot_samples/aa_2f_z_l/edm4hep
 files:

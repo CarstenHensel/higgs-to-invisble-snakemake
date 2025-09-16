@@ -29,10 +29,10 @@ from pathlib import Path
 # -----------------------------
 # Configuration
 # -----------------------------
-ROOT_DIR = "/afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC"   # adjust to your root path
+ROOT_DIR = "/afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples"   # adjust to your root path
 OUTPUT_DIR = "job_yamls"
 CHUNK_SIZE = 100   # number of files per job
-CROSS_SECTION_FILE = "cross_sections.yaml"  # input cross-section YAML
+CROSS_SECTION_FILE = "/afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_xsec.yaml"  # input cross-section YAML
 
 LOG_FILE = "generate_job_yamls.log"
 

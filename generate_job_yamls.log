@@ -1,109 +1,195 @@
-2025-09-15 23:10:04,602 [INFO] Generating jobs from 48 processes
-2025-09-15 23:10:04,603 [INFO] Process 2f_z_eehiq: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,616 [INFO]   Wrote 2f_z_eehiq_job000.yaml with 50 files
-2025-09-15 23:10:04,617 [INFO] Process 2f_z_h: 100 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,629 [INFO]   Wrote 2f_z_h_job000.yaml with 100 files
-2025-09-15 23:10:04,629 [INFO] Process 4f_sw_sl: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,638 [INFO]   Wrote 4f_sw_sl_job000.yaml with 50 files
-2025-09-15 23:10:04,638 [INFO] Process 4f_sze_sl: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,647 [INFO]   Wrote 4f_sze_sl_job000.yaml with 50 files
-2025-09-15 23:10:04,647 [INFO] Process 4f_sznu_sl: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,670 [INFO]   Wrote 4f_sznu_sl_job000.yaml with 50 files
-2025-09-15 23:10:04,671 [INFO] Process 4f_ww_h: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,680 [INFO]   Wrote 4f_ww_h_job000.yaml with 50 files
-2025-09-15 23:10:04,680 [INFO] Process 4f_ww_l: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,689 [INFO]   Wrote 4f_ww_l_job000.yaml with 50 files
-2025-09-15 23:10:04,689 [INFO] Process 4f_ww_sl: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,711 [INFO]   Wrote 4f_ww_sl_job000.yaml with 50 files
-2025-09-15 23:10:04,711 [INFO] Process 4f_zz_h: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,720 [INFO]   Wrote 4f_zz_h_job000.yaml with 50 files
-2025-09-15 23:10:04,720 [INFO] Process 4f_zz_sl: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,729 [INFO]   Wrote 4f_zz_sl_job000.yaml with 50 files
-2025-09-15 23:10:04,729 [INFO] Process 4f_zznu_sl: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,738 [INFO]   Wrote 4f_zznu_sl_job000.yaml with 50 files
-2025-09-15 23:10:04,738 [INFO] Process 4f_zzorww_h: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,747 [INFO]   Wrote 4f_zzorww_h_job000.yaml with 50 files
-2025-09-15 23:10:04,747 [INFO] Process 6f_eexxxx: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,760 [INFO]   Wrote 6f_eexxxx_job000.yaml with 50 files
-2025-09-15 23:10:04,760 [INFO] Process 6f_eexyyx: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,774 [INFO]   Wrote 6f_eexyyx_job000.yaml with 50 files
-2025-09-15 23:10:04,775 [INFO] Process 6f_eeyyyy: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,784 [INFO]   Wrote 6f_eeyyyy_job000.yaml with 50 files
-2025-09-15 23:10:04,784 [INFO] Process 6f_llxxxx: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,798 [INFO]   Wrote 6f_llxxxx_job000.yaml with 50 files
-2025-09-15 23:10:04,798 [INFO] Process 6f_llxyyx: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,807 [INFO]   Wrote 6f_llxyyx_job000.yaml with 50 files
-2025-09-15 23:10:04,807 [INFO] Process 6f_llyyyy: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,816 [INFO]   Wrote 6f_llyyyy_job000.yaml with 50 files
-2025-09-15 23:10:04,816 [INFO] Process 6f_vvxxxx: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,824 [INFO]   Wrote 6f_vvxxxx_job000.yaml with 50 files
-2025-09-15 23:10:04,825 [INFO] Process 6f_vvxyyx: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,833 [INFO]   Wrote 6f_vvxyyx_job000.yaml with 50 files
-2025-09-15 23:10:04,833 [INFO] Process 6f_vvyyyy: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,844 [INFO]   Wrote 6f_vvyyyy_job000.yaml with 50 files
-2025-09-15 23:10:04,844 [INFO] Process aa_2f_z_l: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,852 [INFO]   Wrote aa_2f_z_l_job000.yaml with 50 files
-2025-09-15 23:10:04,853 [INFO] Process ae_5f_ww_h: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,862 [INFO]   Wrote ae_5f_ww_h_job000.yaml with 50 files
-2025-09-15 23:10:04,863 [INFO] Process ae_5f_ww_l: 16 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,871 [INFO]   Wrote ae_5f_ww_l_job000.yaml with 16 files
-2025-09-15 23:10:04,872 [INFO] Process ae_5f_ww_sl: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,880 [INFO]   Wrote ae_5f_ww_sl_job000.yaml with 50 files
-2025-09-15 23:10:04,880 [INFO] Process ae_5f_zz_h: 10 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,899 [INFO]   Wrote ae_5f_zz_h_job000.yaml with 10 files
-2025-09-15 23:10:04,899 [INFO] Process ae_5f_zz_l: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,907 [INFO]   Wrote ae_5f_zz_l_job000.yaml with 50 files
-2025-09-15 23:10:04,908 [INFO] Process ae_5f_zz_sl: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,916 [INFO]   Wrote ae_5f_zz_sl_job000.yaml with 50 files
-2025-09-15 23:10:04,917 [INFO] Process ae_5f_zznu_l: 2 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,926 [INFO]   Wrote ae_5f_zznu_l_job000.yaml with 2 files
-2025-09-15 23:10:04,926 [INFO] Process ae_5f_zznu_sl: 4 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,935 [INFO]   Wrote ae_5f_zznu_sl_job000.yaml with 4 files
-2025-09-15 23:10:04,935 [INFO] Process ae_5f_zzorww_h: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,943 [INFO]   Wrote ae_5f_zzorww_h_job000.yaml with 50 files
-2025-09-15 23:10:04,943 [INFO] Process ae_5f_zzorww_l: 2 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:04,967 [INFO]   Wrote ae_5f_zzorww_l_job000.yaml with 2 files
-2025-09-15 23:10:04,967 [INFO] Process e1e1h: 200 files → 2 jobs (chunk size 100)
-2025-09-15 23:10:04,979 [INFO]   Wrote e1e1h_job000.yaml with 100 files
-2025-09-15 23:10:04,993 [INFO]   Wrote e1e1h_job001.yaml with 100 files
-2025-09-15 23:10:04,993 [INFO] Process e2e2h: 200 files → 2 jobs (chunk size 100)
-2025-09-15 23:10:05,006 [INFO]   Wrote e2e2h_job000.yaml with 100 files
-2025-09-15 23:10:05,018 [INFO]   Wrote e2e2h_job001.yaml with 100 files
-2025-09-15 23:10:05,019 [INFO] Process e3e3h: 200 files → 2 jobs (chunk size 100)
-2025-09-15 23:10:05,032 [INFO]   Wrote e3e3h_job000.yaml with 100 files
-2025-09-15 23:10:05,044 [INFO]   Wrote e3e3h_job001.yaml with 100 files
-2025-09-15 23:10:05,045 [INFO] Process ea_5f_ww_h: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:05,055 [INFO]   Wrote ea_5f_ww_h_job000.yaml with 50 files
-2025-09-15 23:10:05,055 [INFO] Process ea_5f_ww_l: 3 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:05,065 [INFO]   Wrote ea_5f_ww_l_job000.yaml with 3 files
-2025-09-15 23:10:05,065 [INFO] Process ea_5f_ww_sl: 48 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:05,074 [INFO]   Wrote ea_5f_ww_sl_job000.yaml with 48 files
-2025-09-15 23:10:05,075 [INFO] Process ea_5f_zz_h: 20 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:05,084 [INFO]   Wrote ea_5f_zz_h_job000.yaml with 20 files
-2025-09-15 23:10:05,084 [INFO] Process ea_5f_zz_l: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:05,122 [INFO]   Wrote ea_5f_zz_l_job000.yaml with 50 files
-2025-09-15 23:10:05,122 [INFO] Process ea_5f_zz_sl: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:05,131 [INFO]   Wrote ea_5f_zz_sl_job000.yaml with 50 files
-2025-09-15 23:10:05,132 [INFO] Process ea_5f_zznu_l: 2 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:05,148 [INFO]   Wrote ea_5f_zznu_l_job000.yaml with 2 files
-2025-09-15 23:10:05,148 [INFO] Process ea_5f_zznu_sl: 4 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:05,170 [INFO]   Wrote ea_5f_zznu_sl_job000.yaml with 4 files
-2025-09-15 23:10:05,171 [INFO] Process ea_5f_zzorww_h: 50 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:05,181 [INFO]   Wrote ea_5f_zzorww_h_job000.yaml with 50 files
-2025-09-15 23:10:05,182 [INFO] Process ea_5f_zzorww_l: 2 files → 1 jobs (chunk size 100)
-2025-09-15 23:10:05,192 [INFO]   Wrote ea_5f_zzorww_l_job000.yaml with 2 files
-2025-09-15 23:10:05,193 [INFO] Process n1n1h: 200 files → 2 jobs (chunk size 100)
-2025-09-15 23:10:05,206 [INFO]   Wrote n1n1h_job000.yaml with 100 files
-2025-09-15 23:10:05,219 [INFO]   Wrote n1n1h_job001.yaml with 100 files
-2025-09-15 23:10:05,219 [INFO] Process n23n23h: 200 files → 2 jobs (chunk size 100)
-2025-09-15 23:10:05,231 [INFO]   Wrote n23n23h_job000.yaml with 100 files
-2025-09-15 23:10:05,242 [INFO]   Wrote n23n23h_job001.yaml with 100 files
-2025-09-15 23:10:05,242 [INFO] Process qqh: 630 files → 7 jobs (chunk size 100)
-2025-09-15 23:10:05,254 [INFO]   Wrote qqh_job000.yaml with 100 files
-2025-09-15 23:10:05,264 [INFO]   Wrote qqh_job001.yaml with 100 files
-2025-09-15 23:10:05,275 [INFO]   Wrote qqh_job002.yaml with 100 files
-2025-09-15 23:10:05,287 [INFO]   Wrote qqh_job003.yaml with 100 files
-2025-09-15 23:10:05,298 [INFO]   Wrote qqh_job004.yaml with 100 files
-2025-09-15 23:10:05,348 [INFO]   Wrote qqh_job005.yaml with 100 files
-2025-09-15 23:10:05,358 [INFO]   Wrote qqh_job006.yaml with 30 files
-2025-09-15 23:10:05,358 [INFO] Finished: 59 job YAMLs written to job_yamls
+2025-09-16 23:21:50,841 [INFO] Loaded cross-section info for 25 processes
+2025-09-16 23:21:50,856 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/2f_eehiq, no edm4hep/ subdir
+2025-09-16 23:21:50,858 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/2f_eehiq_eL_pL, no edm4hep/ subdir
+2025-09-16 23:21:50,862 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/2f_eehiq_eL_pR, no edm4hep/ subdir
+2025-09-16 23:21:50,864 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/2f_eehiq_eR_pL, no edm4hep/ subdir
+2025-09-16 23:21:50,867 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/2f_eehiq_eR_pR, no edm4hep/ subdir
+2025-09-16 23:21:50,870 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/2f_hadronic, no edm4hep/ subdir
+2025-09-16 23:21:50,872 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/2f_hadronic_eL_pR, no edm4hep/ subdir
+2025-09-16 23:21:50,875 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/2f_hadronic_eR_pL, no edm4hep/ subdir
+2025-09-16 23:21:50,899 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/4f_WW_hadronic, no edm4hep/ subdir
+2025-09-16 23:21:50,903 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/4f_WW_leptonic, no edm4hep/ subdir
+2025-09-16 23:21:50,906 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/4f_WW_semileptonic, no edm4hep/ subdir
+2025-09-16 23:21:50,908 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/4f_ZZWWMix_hadronic, no edm4hep/ subdir
+2025-09-16 23:21:50,912 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/4f_ZZ_hadronic, no edm4hep/ subdir
+2025-09-16 23:21:50,915 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/4f_ZZ_semileptonic, no edm4hep/ subdir
+2025-09-16 23:21:51,014 [WARNING] No cross-section info for process 6f_eexxxx
+2025-09-16 23:21:51,024 [WARNING] No cross-section info for process 6f_eexyyx
+2025-09-16 23:21:51,033 [WARNING] No cross-section info for process 6f_eeyyyy
+2025-09-16 23:21:51,043 [WARNING] No cross-section info for process 6f_llxxxx
+2025-09-16 23:21:51,052 [WARNING] No cross-section info for process 6f_llxyyx
+2025-09-16 23:21:51,072 [WARNING] No cross-section info for process 6f_llyyyy
+2025-09-16 23:21:51,082 [WARNING] No cross-section info for process 6f_vvxxxx
+2025-09-16 23:21:51,090 [WARNING] No cross-section info for process 6f_vvxyyx
+2025-09-16 23:21:51,101 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/WW, no edm4hep/ subdir
+2025-09-16 23:21:51,104 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/ZH, no edm4hep/ subdir
+2025-09-16 23:21:51,106 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/ZZ, no edm4hep/ subdir
+2025-09-16 23:21:51,109 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/aa_2f_Z_hadronic, no edm4hep/ subdir
+2025-09-16 23:21:51,111 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/aa_2f_Z_leptonic, no edm4hep/ subdir
+2025-09-16 23:21:51,114 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/aa_2f_z_h, no edm4hep/ subdir
+2025-09-16 23:21:51,127 [WARNING] Process ae_3f_z_l has no .root files
+2025-09-16 23:21:51,135 [WARNING] No cross-section info for process ae_5f_ww_h
+2025-09-16 23:21:51,151 [WARNING] No cross-section info for process ae_5f_ww_sl
+2025-09-16 23:21:51,159 [WARNING] No cross-section info for process ae_5f_zz_h
+2025-09-16 23:21:51,168 [WARNING] No cross-section info for process ae_5f_zz_l
+2025-09-16 23:21:51,178 [WARNING] No cross-section info for process ae_5f_zz_sl
+2025-09-16 23:21:51,184 [WARNING] No cross-section info for process ae_5f_zznu_l
+2025-09-16 23:21:51,192 [WARNING] No cross-section info for process ae_5f_zznu_sl
+2025-09-16 23:21:51,202 [WARNING] No cross-section info for process ae_5f_zzorww_h
+2025-09-16 23:21:51,221 [WARNING] No cross-section info for process e1e1h
+2025-09-16 23:21:51,224 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/e1e1h_dd, no edm4hep/ subdir
+2025-09-16 23:21:51,227 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/e1e1h_ss, no edm4hep/ subdir
+2025-09-16 23:21:51,229 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/e1e1h_uu, no edm4hep/ subdir
+2025-09-16 23:21:51,247 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/e2e2h_dd, no edm4hep/ subdir
+2025-09-16 23:21:51,250 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/e2e2h_ss, no edm4hep/ subdir
+2025-09-16 23:21:51,255 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/e2e2h_uu, no edm4hep/ subdir
+2025-09-16 23:21:51,268 [WARNING] No cross-section info for process e3e3h
+2025-09-16 23:21:51,271 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/e3e3h_dd, no edm4hep/ subdir
+2025-09-16 23:21:51,273 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/e3e3h_ss, no edm4hep/ subdir
+2025-09-16 23:21:51,276 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/e3e3h_uu, no edm4hep/ subdir
+2025-09-16 23:21:51,281 [WARNING] Process ea_3f_w_h has no .root files
+2025-09-16 23:21:51,285 [WARNING] Process ea_3f_w_l has no .root files
+2025-09-16 23:21:51,290 [WARNING] Process ea_3f_z_h has no .root files
+2025-09-16 23:21:51,295 [WARNING] Process ea_3f_z_l has no .root files
+2025-09-16 23:21:51,301 [WARNING] Process ea_3f_z_nu has no .root files
+2025-09-16 23:21:51,309 [WARNING] No cross-section info for process ea_5f_ww_h
+2025-09-16 23:21:51,316 [WARNING] No cross-section info for process ea_5f_ww_l
+2025-09-16 23:21:51,324 [WARNING] No cross-section info for process ea_5f_ww_sl
+2025-09-16 23:21:51,331 [WARNING] No cross-section info for process ea_5f_zz_h
+2025-09-16 23:21:51,339 [WARNING] No cross-section info for process ea_5f_zz_l
+2025-09-16 23:21:51,347 [WARNING] No cross-section info for process ea_5f_zz_sl
+2025-09-16 23:21:51,352 [WARNING] No cross-section info for process ea_5f_zznu_l
+2025-09-16 23:21:51,359 [WARNING] No cross-section info for process ea_5f_zznu_sl
+2025-09-16 23:21:51,368 [WARNING] No cross-section info for process ea_5f_zzorww_h
+2025-09-16 23:21:51,374 [WARNING] No cross-section info for process ea_5f_zzorww_l
+2025-09-16 23:21:51,376 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/gammagamma, no edm4hep/ subdir
+2025-09-16 23:21:51,389 [WARNING] No cross-section info for process n1n1h
+2025-09-16 23:21:51,392 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/n1n1h_dd, no edm4hep/ subdir
+2025-09-16 23:21:51,394 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/n1n1h_ss, no edm4hep/ subdir
+2025-09-16 23:21:51,397 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/n1n1h_uu, no edm4hep/ subdir
+2025-09-16 23:21:51,412 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/n23n23h_dd, no edm4hep/ subdir
+2025-09-16 23:21:51,414 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/n23n23h_ss, no edm4hep/ subdir
+2025-09-16 23:21:51,418 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/n23n23h_uu, no edm4hep/ subdir
+2025-09-16 23:21:51,420 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/qq, no edm4hep/ subdir
+2025-09-16 23:21:51,452 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/qqh_aa, no edm4hep/ subdir
+2025-09-16 23:21:51,454 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/qqh_az, no edm4hep/ subdir
+2025-09-16 23:21:51,457 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/qqh_bb, no edm4hep/ subdir
+2025-09-16 23:21:51,460 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/qqh_cc, no edm4hep/ subdir
+2025-09-16 23:21:51,463 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/qqh_dd, no edm4hep/ subdir
+2025-09-16 23:21:51,466 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/qqh_e2e2, no edm4hep/ subdir
+2025-09-16 23:21:51,469 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/qqh_e3e3, no edm4hep/ subdir
+2025-09-16 23:21:51,472 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/qqh_gg, no edm4hep/ subdir
+2025-09-16 23:21:51,474 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/qqh_ss, no edm4hep/ subdir
+2025-09-16 23:21:51,477 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/qqh_uu, no edm4hep/ subdir
+2025-09-16 23:21:51,479 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/qqh_ww, no edm4hep/ subdir
+2025-09-16 23:21:51,482 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/qqh_zz, no edm4hep/ subdir
+2025-09-16 23:21:51,484 [WARNING] Skipping /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/unknown, no edm4hep/ subdir
+2025-09-16 23:21:51,484 [INFO] Discovered 48 processes under /afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples
+2025-09-16 23:21:51,484 [INFO] Process 2f_z_eehiq: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:51,495 [INFO]   Wrote 2f_z_eehiq_job000.yaml with 50 files
+2025-09-16 23:21:51,495 [INFO] Process 2f_z_h: 100 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:51,567 [INFO]   Wrote 2f_z_h_job000.yaml with 100 files
+2025-09-16 23:21:51,568 [INFO] Process 4f_sw_sl: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:51,580 [INFO]   Wrote 4f_sw_sl_job000.yaml with 50 files
+2025-09-16 23:21:51,580 [INFO] Process 4f_sze_sl: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:51,628 [INFO]   Wrote 4f_sze_sl_job000.yaml with 50 files
+2025-09-16 23:21:51,628 [INFO] Process 4f_sznu_sl: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:51,672 [INFO]   Wrote 4f_sznu_sl_job000.yaml with 50 files
+2025-09-16 23:21:51,672 [INFO] Process 4f_ww_h: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:51,764 [INFO]   Wrote 4f_ww_h_job000.yaml with 50 files
+2025-09-16 23:21:51,765 [INFO] Process 4f_ww_l: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:51,779 [INFO]   Wrote 4f_ww_l_job000.yaml with 50 files
+2025-09-16 23:21:51,779 [INFO] Process 4f_ww_sl: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:51,823 [INFO]   Wrote 4f_ww_sl_job000.yaml with 50 files
+2025-09-16 23:21:51,823 [INFO] Process 4f_zz_h: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:51,924 [INFO]   Wrote 4f_zz_h_job000.yaml with 50 files
+2025-09-16 23:21:51,924 [INFO] Process 4f_zz_sl: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:51,937 [INFO]   Wrote 4f_zz_sl_job000.yaml with 50 files
+2025-09-16 23:21:51,937 [INFO] Process 4f_zznu_sl: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:51,973 [INFO]   Wrote 4f_zznu_sl_job000.yaml with 50 files
+2025-09-16 23:21:51,973 [INFO] Process 4f_zzorww_h: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:51,986 [INFO]   Wrote 4f_zzorww_h_job000.yaml with 50 files
+2025-09-16 23:21:51,986 [INFO] Process 6f_eexxxx: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:52,371 [INFO]   Wrote 6f_eexxxx_job000.yaml with 50 files
+2025-09-16 23:21:52,372 [INFO] Process 6f_eexyyx: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:52,423 [INFO]   Wrote 6f_eexyyx_job000.yaml with 50 files
+2025-09-16 23:21:52,423 [INFO] Process 6f_eeyyyy: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:52,459 [INFO]   Wrote 6f_eeyyyy_job000.yaml with 50 files
+2025-09-16 23:21:52,459 [INFO] Process 6f_llxxxx: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:52,546 [INFO]   Wrote 6f_llxxxx_job000.yaml with 50 files
+2025-09-16 23:21:52,546 [INFO] Process 6f_llxyyx: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:52,601 [INFO]   Wrote 6f_llxyyx_job000.yaml with 50 files
+2025-09-16 23:21:52,601 [INFO] Process 6f_llyyyy: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:52,642 [INFO]   Wrote 6f_llyyyy_job000.yaml with 50 files
+2025-09-16 23:21:52,643 [INFO] Process 6f_vvxxxx: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:52,726 [INFO]   Wrote 6f_vvxxxx_job000.yaml with 50 files
+2025-09-16 23:21:52,727 [INFO] Process 6f_vvxyyx: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:52,777 [INFO]   Wrote 6f_vvxyyx_job000.yaml with 50 files
+2025-09-16 23:21:52,777 [INFO] Process 6f_vvyyyy: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:52,827 [INFO]   Wrote 6f_vvyyyy_job000.yaml with 50 files
+2025-09-16 23:21:52,828 [INFO] Process aa_2f_z_l: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:52,900 [INFO]   Wrote aa_2f_z_l_job000.yaml with 50 files
+2025-09-16 23:21:52,900 [INFO] Process ae_5f_ww_h: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:52,915 [INFO]   Wrote ae_5f_ww_h_job000.yaml with 50 files
+2025-09-16 23:21:52,915 [INFO] Process ae_5f_ww_l: 16 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:52,958 [INFO]   Wrote ae_5f_ww_l_job000.yaml with 16 files
+2025-09-16 23:21:52,958 [INFO] Process ae_5f_ww_sl: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:53,014 [INFO]   Wrote ae_5f_ww_sl_job000.yaml with 50 files
+2025-09-16 23:21:53,014 [INFO] Process ae_5f_zz_h: 10 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:53,056 [INFO]   Wrote ae_5f_zz_h_job000.yaml with 10 files
+2025-09-16 23:21:53,056 [INFO] Process ae_5f_zz_l: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:53,068 [INFO]   Wrote ae_5f_zz_l_job000.yaml with 50 files
+2025-09-16 23:21:53,068 [INFO] Process ae_5f_zz_sl: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:53,091 [INFO]   Wrote ae_5f_zz_sl_job000.yaml with 50 files
+2025-09-16 23:21:53,091 [INFO] Process ae_5f_zznu_l: 2 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:53,101 [INFO]   Wrote ae_5f_zznu_l_job000.yaml with 2 files
+2025-09-16 23:21:53,101 [INFO] Process ae_5f_zznu_sl: 4 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:53,151 [INFO]   Wrote ae_5f_zznu_sl_job000.yaml with 4 files
+2025-09-16 23:21:53,152 [INFO] Process ae_5f_zzorww_h: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:53,186 [INFO]   Wrote ae_5f_zzorww_h_job000.yaml with 50 files
+2025-09-16 23:21:53,187 [INFO] Process ae_5f_zzorww_l: 2 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:53,249 [INFO]   Wrote ae_5f_zzorww_l_job000.yaml with 2 files
+2025-09-16 23:21:53,249 [INFO] Process e1e1h: 200 files → 2 jobs (chunk size 100)
+2025-09-16 23:21:53,265 [INFO]   Wrote e1e1h_job000.yaml with 100 files
+2025-09-16 23:21:53,324 [INFO]   Wrote e1e1h_job001.yaml with 100 files
+2025-09-16 23:21:53,324 [INFO] Process e2e2h: 200 files → 2 jobs (chunk size 100)
+2025-09-16 23:21:53,471 [INFO]   Wrote e2e2h_job000.yaml with 100 files
+2025-09-16 23:21:53,529 [INFO]   Wrote e2e2h_job001.yaml with 100 files
+2025-09-16 23:21:53,529 [INFO] Process e3e3h: 200 files → 2 jobs (chunk size 100)
+2025-09-16 23:21:53,545 [INFO]   Wrote e3e3h_job000.yaml with 100 files
+2025-09-16 23:21:53,585 [INFO]   Wrote e3e3h_job001.yaml with 100 files
+2025-09-16 23:21:53,585 [INFO] Process ea_5f_ww_h: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:53,648 [INFO]   Wrote ea_5f_ww_h_job000.yaml with 50 files
+2025-09-16 23:21:53,648 [INFO] Process ea_5f_ww_l: 3 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:53,691 [INFO]   Wrote ea_5f_ww_l_job000.yaml with 3 files
+2025-09-16 23:21:53,691 [INFO] Process ea_5f_ww_sl: 48 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:53,703 [INFO]   Wrote ea_5f_ww_sl_job000.yaml with 48 files
+2025-09-16 23:21:53,704 [INFO] Process ea_5f_zz_h: 20 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:53,713 [INFO]   Wrote ea_5f_zz_h_job000.yaml with 20 files
+2025-09-16 23:21:53,713 [INFO] Process ea_5f_zz_l: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:53,763 [INFO]   Wrote ea_5f_zz_l_job000.yaml with 50 files
+2025-09-16 23:21:53,764 [INFO] Process ea_5f_zz_sl: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:53,806 [INFO]   Wrote ea_5f_zz_sl_job000.yaml with 50 files
+2025-09-16 23:21:53,806 [INFO] Process ea_5f_zznu_l: 2 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:53,815 [INFO]   Wrote ea_5f_zznu_l_job000.yaml with 2 files
+2025-09-16 23:21:53,816 [INFO] Process ea_5f_zznu_sl: 4 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:53,912 [INFO]   Wrote ea_5f_zznu_sl_job000.yaml with 4 files
+2025-09-16 23:21:53,912 [INFO] Process ea_5f_zzorww_h: 50 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:53,924 [INFO]   Wrote ea_5f_zzorww_h_job000.yaml with 50 files
+2025-09-16 23:21:53,924 [INFO] Process ea_5f_zzorww_l: 2 files → 1 jobs (chunk size 100)
+2025-09-16 23:21:53,971 [INFO]   Wrote ea_5f_zzorww_l_job000.yaml with 2 files
+2025-09-16 23:21:53,971 [INFO] Process n1n1h: 200 files → 2 jobs (chunk size 100)
+2025-09-16 23:21:54,157 [INFO]   Wrote n1n1h_job000.yaml with 100 files
+2025-09-16 23:21:54,180 [INFO]   Wrote n1n1h_job001.yaml with 100 files
+2025-09-16 23:21:54,180 [INFO] Process n23n23h: 200 files → 2 jobs (chunk size 100)
+2025-09-16 23:21:54,217 [INFO]   Wrote n23n23h_job000.yaml with 100 files
+2025-09-16 23:21:54,262 [INFO]   Wrote n23n23h_job001.yaml with 100 files
+2025-09-16 23:21:54,262 [INFO] Process qqh: 630 files → 7 jobs (chunk size 100)
+2025-09-16 23:21:54,378 [INFO]   Wrote qqh_job000.yaml with 100 files
+2025-09-16 23:21:54,406 [INFO]   Wrote qqh_job001.yaml with 100 files
+2025-09-16 23:21:54,419 [INFO]   Wrote qqh_job002.yaml with 100 files
+2025-09-16 23:21:54,491 [INFO]   Wrote qqh_job003.yaml with 100 files
+2025-09-16 23:21:54,587 [INFO]   Wrote qqh_job004.yaml with 100 files
+2025-09-16 23:21:54,601 [INFO]   Wrote qqh_job005.yaml with 100 files
+2025-09-16 23:21:54,612 [INFO]   Wrote qqh_job006.yaml with 30 files
+2025-09-16 23:21:54,612 [INFO] Finished: 59 job YAMLs written to job_yamls

@@ -1,6 +1,6 @@
 process: 4f_sw_sl
-cross_section_pb: 0.0
-n_events: 0
+cross_section_pb: 10.264016
+n_events: 16800
 k_factor: 1.0
 path: /eos/home-c/chensel/Work/ILC/HtoInv/MC/pilot_samples/4f_sw_sl/edm4hep
 files:

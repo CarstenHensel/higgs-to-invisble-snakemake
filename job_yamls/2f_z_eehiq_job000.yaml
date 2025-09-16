@@ -1,6 +1,6 @@
 process: 2f_z_eehiq
-cross_section_pb: 0.0
-n_events: 0
+cross_section_pb: 199.21827
+n_events: 43200
 k_factor: 1.0
 path: /eos/home-c/chensel/Work/ILC/HtoInv/MC/pilot_samples/2f_z_eehiq/edm4hep
 files:

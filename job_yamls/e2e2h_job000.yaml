@@ -1,6 +1,6 @@
 process: e2e2h
-cross_section_pb: 0.0
-n_events: 0
+cross_section_pb: 0.016970655
+n_events: 14000
 k_factor: 1.0
 path: /eos/home-c/chensel/Work/ILC/HtoInv/MC/pilot_samples/e2e2h/edm4hep
 files:

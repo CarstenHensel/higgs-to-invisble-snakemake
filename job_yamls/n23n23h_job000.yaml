@@ -1,6 +1,6 @@
 process: n23n23h
-cross_section_pb: 0.0
-n_events: 0
+cross_section_pb: 0.016940726000000003
+n_events: 13200
 k_factor: 1.0
 path: /eos/home-c/chensel/Work/ILC/HtoInv/MC/pilot_samples/n23n23h/edm4hep
 files:
