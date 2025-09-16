@@ -1,7 +1,7 @@
 rule collect_xsecs:
     input:
-        "lfns.txt"
+        "/afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_lfns.txt"
     output:
         "xsecs.yaml"
     shell:
-        "./ilc_xsec_collector.py -i {input} -o {output}"
+        "python3 scripts/ilc_xsec_collector.py -i {input} -o {output}"
