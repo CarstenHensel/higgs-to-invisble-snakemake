@@ -1,0 +1,16 @@
+process: ae_5f_zz_h
+cross_section_pb: 0.0
+n_events: 0
+k_factor: 1.0
+path: /eos/home-c/chensel/Work/ILC/HtoInv/MC/pilot_samples/ae_5f_zz_h/edm4hep
+files:
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500209.Pae_5f_zz_h.eW.pL.n000_001.d_dst_00016317_128.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500209.Pae_5f_zz_h.eW.pL.n000_002.d_dst_00016318_920.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500209.Pae_5f_zz_h.eW.pL.n000_003.d_dst_00016318_553.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500209.Pae_5f_zz_h.eW.pL.n000_004.d_dst_00016318_724.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500209.Pae_5f_zz_h.eW.pL.n000_005.d_dst_00016318_305.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500211.Pae_5f_zz_h.eW.pR.n000_001.d_dst_00016317_106.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500211.Pae_5f_zz_h.eW.pR.n000_002.d_dst_00016318_465.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500211.Pae_5f_zz_h.eW.pR.n000_003.d_dst_00016318_645.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500211.Pae_5f_zz_h.eW.pR.n000_004.d_dst_00016318_256.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500211.Pae_5f_zz_h.eW.pR.n000_005.d_dst_00016318_775.root

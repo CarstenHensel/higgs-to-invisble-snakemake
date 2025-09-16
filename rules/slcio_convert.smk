@@ -2,9 +2,15 @@
 
 rule convert:
     input:
-        "/afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/"
+        config["slcio_path"]
     output:
-        "/afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples/"
+        f"{config['slcio_path']}/.conversion_done"
+    params:
+        opts = config.get("slcio_conversion_options", "")
     shell:
         """
-        python3 scripts/slcio2edm4hep_validate_crawler.py {input} 
+        python scripts/slcio2edm4hep_validate_crawler.py {params.opts} {input}
+        touch {output}
+        """
+
+

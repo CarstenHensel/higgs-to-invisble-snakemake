@@ -1,0 +1,62 @@
+Assuming unrestricted shared filesystem usage.
+None
+host: lxplus904.cern.ch
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                   count
+------------------  -------
+discover_mc               1
+generate_job_yamls        1
+total                     2
+
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Sep 15 23:10:01 2025]
+localrule discover_mc:
+    output: mc_metadata.yaml
+    log: logs/discover_mc.log
+    jobid: 1
+    reason: Missing output files: mc_metadata.yaml
+    resources: tmpdir=/tmp/chensel
+[Mon Sep 15 23:10:04 2025]
+Finished jobid: 1 (Rule: discover_mc)
+1 of 2 steps (50%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Sep 15 23:10:04 2025]
+localrule generate_job_yamls:
+    input: mc_metadata.yaml
+    output: job_yamls
+    log: logs/generate_job_yamls.log
+    jobid: 0
+    reason: Input files updated by another job: mc_metadata.yaml
+    resources: tmpdir=/tmp/chensel
+ImproperOutputException in rule generate_job_yamls in file "/eos/home-c/chensel/ILC/Snakemake/higgs-to-invisble-snakemake/rules/generate_job_yamls.smk", line 3:
+Outputs of incorrect type (directories when expecting files or vice versa). Output directories must be flagged with directory(). for rule generate_job_yamls:
+    output: job_yamls
+    affected files:
+        job_yamls
+Removing output files of failed job generate_job_yamls since they might be corrupted:
+job_yamls
+Skipped removing non-empty directory job_yamls
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look below for error messages
+[Mon Sep 15 23:10:05 2025]
+Error in rule generate_job_yamls:
+    message: None
+    jobid: 0
+    input: mc_metadata.yaml
+    output: job_yamls
+    log: logs/generate_job_yamls.log (check log file(s) for error details)
+    shell:
+        
+        mkdir -p logs job_yamls
+        python3 scripts/generate_job_yamls.py > logs/generate_job_yamls.log 2>&1
+        
+        (command exited with non-zero exit code)
+Complete log(s): /eos/home-c/chensel/ILC/Snakemake/higgs-to-invisble-snakemake/.snakemake/log/2025-09-15T231001.095625.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

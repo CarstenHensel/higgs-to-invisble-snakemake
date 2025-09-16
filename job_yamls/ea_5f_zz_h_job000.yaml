@@ -1,0 +1,26 @@
+process: ea_5f_zz_h
+cross_section_pb: 0.0
+n_events: 0
+k_factor: 1.0
+path: /eos/home-c/chensel/Work/ILC/HtoInv/MC/pilot_samples/ea_5f_zz_h/edm4hep
+files:
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500169.Pea_5f_zz_h.eL.pW.n000_001.d_dst_00016317_2.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500169.Pea_5f_zz_h.eL.pW.n000_002.d_dst_00016318_24.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500169.Pea_5f_zz_h.eL.pW.n000_003.d_dst_00016318_41.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500169.Pea_5f_zz_h.eL.pW.n000_004.d_dst_00016318_12.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500169.Pea_5f_zz_h.eL.pW.n000_005.d_dst_00016318_64.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500169.Pea_5f_zz_h.eL.pW.n000_006.d_dst_00016318_4.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500169.Pea_5f_zz_h.eL.pW.n000_007.d_dst_00016318_62.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500169.Pea_5f_zz_h.eL.pW.n000_008.d_dst_00016318_3.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500169.Pea_5f_zz_h.eL.pW.n000_009.d_dst_00016318_10.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500169.Pea_5f_zz_h.eL.pW.n000_010.d_dst_00016318_7.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500171.Pea_5f_zz_h.eR.pW.n000_001.d_dst_00016317_1.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500171.Pea_5f_zz_h.eR.pW.n000_002.d_dst_00016318_23.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500171.Pea_5f_zz_h.eR.pW.n000_003.d_dst_00016318_1.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500171.Pea_5f_zz_h.eR.pW.n000_004.d_dst_00016318_59.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500171.Pea_5f_zz_h.eR.pW.n000_005.d_dst_00016318_8.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500171.Pea_5f_zz_h.eR.pW.n000_006.d_dst_00016318_16.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500171.Pea_5f_zz_h.eR.pW.n000_007.d_dst_00016318_39.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500171.Pea_5f_zz_h.eR.pW.n000_008.d_dst_00016318_44.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500171.Pea_5f_zz_h.eR.pW.n000_009.d_dst_00016318_6.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500171.Pea_5f_zz_h.eR.pW.n000_010.d_dst_00016318_5.root
