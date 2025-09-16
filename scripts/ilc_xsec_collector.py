@@ -95,10 +95,10 @@ def main():
             r'CrossSection\s+:\s+([\dEe\+\-\.]+)\s+fb\+/-([\dEe\+\-\.]+)fb', output
         )
 
-        # Extract NumberOfEvents
+        # Extract NumberOfEvents (allow optional spaces at the start)
         events_match = re.search(
-            r'NumberOfEvents\s+:\s+(\d+)', output
-        )
+            r'^\s*NumberOfEvents\s*:\s*(\d+)', output, re.MULTILINE
+        )         
 
         if cross_section_match:
             xsec_value, xsec_error = cross_section_match.groups()
