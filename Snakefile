@@ -15,6 +15,7 @@ mc_targets = ["mc_metadata.yaml", "job_yamls"]
 
 rule all:
     input:
+        "xsecs.yaml"
         conversion_target,
         *mc_targets
 
