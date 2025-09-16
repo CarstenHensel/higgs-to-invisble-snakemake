@@ -1,9 +1,0 @@
-process: ea_5f_ww_l
-cross_section_pb: 0.0
-n_events: 0
-k_factor: 1.0
-path: /eos/home-c/chensel/Work/ILC/HtoInv/MC/pilot_samples/ea_5f_ww_l/edm4hep
-files:
-- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500201.Pea_5f_ww_l.eL.pW.n000_001.d_dst_00016317_89.root
-- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500201.Pea_5f_ww_l.eL.pW.n000_002.d_dst_00016318_42.root
-- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500203.Pea_5f_ww_l.eR.pW.n000_001.d_dst_00016317_77.root
