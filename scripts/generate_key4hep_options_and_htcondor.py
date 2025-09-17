@@ -22,8 +22,8 @@ from datetime import datetime
 # Configuration
 # -----------------------------
 JOBS_DIR = Path("job_yamls")        # Directory with your YAML files
-OPTIONS_TEMPLATE = Path("
-        /afs/cern.ch/user/c/chensel/ILD/workarea/May2025/k4-project-template/k4ProjectTemplate/options/default_options_file.py"
+OPTIONS_TEMPLATE = Path(
+        "/afs/cern.ch/user/c/chensel/ILD/workarea/May2025/k4-project-template/k4ProjectTemplate/options/default_options_file.py"
         )
 OUTPUT_OPTIONS_DIR = Path("key4hep_options")
 OUTPUT_SCRIPT_DIR = Path("htcondor_jobs")
