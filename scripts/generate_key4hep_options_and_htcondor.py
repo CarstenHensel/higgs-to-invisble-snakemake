@@ -25,12 +25,14 @@ import re
 # -----------------------------
 # Configuration
 # -----------------------------
-JOBS_DIR = Path("/path/to/job_yamls")        # Directory with your YAML files
-OPTIONS_TEMPLATE = Path("/path/to/default_options_file.py")
+JOBS_DIR = Path("job_yamls")        # Directory with your YAML files
+OPTIONS_TEMPLATE = Path(
+        "/afs/cern.ch/user/c/chensel/ILD/workarea/May2025/k4-project-template/k4ProjectTemplate/options/default_options_file.py"
+        )
 OUTPUT_OPTIONS_DIR = Path("key4hep_options")
 OUTPUT_SCRIPT_DIR = Path("htcondor_jobs")
 LOGS_DIR = Path("htcondor_logs")
-EVTMAX = 1000  # Number of events per job (customizable)
+EVTMAX = 3  # Number of events per job (customizable)
 
 # Setup logging
 LOGFILE = f"generate_key4hep_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
