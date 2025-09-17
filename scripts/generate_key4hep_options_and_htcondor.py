@@ -11,6 +11,7 @@ Features:
 - Inserts YAML file paths into the `files = [...]` list
 - Updates myalg parameters: cross_section, n_events_generated, processName, processID
 - Sets the number of events (EvtMax) from user input
+- Generates unique output ROOT filenames per job
 - Creates run scripts for each job
 - Generates a single HTCondor submission file for all jobs
 - Logs all actions to a timestamped logfile
@@ -26,13 +27,11 @@ import re
 # Configuration
 # -----------------------------
 JOBS_DIR = Path("job_yamls")        # Directory with your YAML files
-OPTIONS_TEMPLATE = Path(
-        "/afs/cern.ch/user/c/chensel/ILD/workarea/May2025/k4-project-template/k4ProjectTemplate/options/default_options_file.py"
-        )
+OPTIONS_TEMPLATE = Path("/afs/cern.ch/user/c/chensel/ILD/workarea/May2025/k4-project-template/k4ProjectTemplate/options/default_options_file.py")
 OUTPUT_OPTIONS_DIR = Path("key4hep_options")
 OUTPUT_SCRIPT_DIR = Path("htcondor_jobs")
 LOGS_DIR = Path("htcondor_logs")
-EVTMAX = 3  # Number of events per job (customizable)
+EVTMAX = 1000  # Number of events per job (customizable)
 
 # Setup logging
 LOGFILE = f"generate_key4hep_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
@@ -56,12 +55,13 @@ def read_yaml(yaml_file):
     with open(yaml_file, "r") as f:
         return yaml.safe_load(f)
 
-def generate_options_newtemplate(yaml_info, template_text, evtmax):
+def generate_options_newtemplate(yaml_info, template_text, evtmax, job_num):
     """
     Generates a Key4hep options file for the new template.
     - Replaces `files = [...]` with the list of files from the YAML
     - Replaces `EvtMax=<number>` with evtmax
     - Sets myalg parameters from YAML
+    - Assigns unique ROOT output filename per job
     """
     # Prepare files list string
     files_list_str = ",\n    ".join([f'"{yaml_info["path"]}/{f}"' for f in yaml_info["files"]])
@@ -82,6 +82,10 @@ def generate_options_newtemplate(yaml_info, template_text, evtmax):
     )
     # Insert after "myalg = HtoInvAlg()" line
     template_text = re.sub(r'(myalg\s*=\s*HtoInvAlg\(\))', r'\1\n' + myalg_lines, template_text)
+
+    # Assign unique output ROOT filename
+    root_filename = f"output_higgsTo_invisible_{yaml_info['process']}_{job_num}.root"
+    template_text = re.sub(r'output\.filename\s*=.*', f"output.filename = '{root_filename}'", template_text)
 
     return template_text
 
@@ -112,7 +116,7 @@ getenv = True
             # Generate options file
             options_filename = f"higgsTo_invisible_{yaml_info['process']}_{job_num}.py"
             options_path = OUTPUT_OPTIONS_DIR / options_filename
-            options_text = generate_options_newtemplate(yaml_info, template_text, EVTMAX)
+            options_text = generate_options_newtemplate(yaml_info, template_text, EVTMAX, job_num)
             with open(options_path, "w") as f:
                 f.write(options_text)
 
