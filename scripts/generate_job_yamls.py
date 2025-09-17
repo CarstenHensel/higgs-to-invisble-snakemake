@@ -1,16 +1,11 @@
-#!/usr/bin/env python3
-
 """
 generate_job_yamls.py
 
 This script scans a directory of Monte Carlo EDM4hep ROOT files and generates
 job YAML files suitable for batch processing. Each job YAML contains a subset
 of ROOT files (chunked by CHUNK_SIZE) along with associated metadata such as
-cross-section (in pb), number of events, and k-factor.
-
-The script also reads a cross-section YAML file (CROSS_SECTION_FILE) that
-contains precomputed cross-sections and event counts for each process, and
-matches them by process name to populate the job YAMLs.
+cross-section (in pb), number of events, k-factor, and process ID read from
+the input cross-section YAML.
 
 Logging is written to generate_job_yamls.log, recording discovered processes,
 warnings for missing files or metadata, and summaries of generated job YAMLs.
@@ -18,7 +13,6 @@ warnings for missing files or metadata, and summaries of generated job YAMLs.
 Usage:
     python generate_job_yamls.py
 """
-
 
 import yaml
 import os
@@ -29,11 +23,10 @@ from pathlib import Path
 # -----------------------------
 # Configuration
 # -----------------------------
-ROOT_DIR = "/afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples"   # adjust to your root path
+ROOT_DIR = "/afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples"
 OUTPUT_DIR = "job_yamls"
-CHUNK_SIZE = 100   # number of files per job
-CROSS_SECTION_FILE = "/afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_xsec.yaml"  # input cross-section YAML
-
+CHUNK_SIZE = 100
+CROSS_SECTION_FILE = "/afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_xsec.yaml"
 LOG_FILE = "generate_job_yamls.log"
 
 # -----------------------------
@@ -50,14 +43,15 @@ logging.basicConfig(
 # Helpers
 # -----------------------------
 def load_cross_sections(filename):
-    """Load cross-section data from YAML and return as dict keyed by Process"""
+    """Load cross-section data and ProdID from YAML, return dict keyed by Process"""
     cs_dict = {}
     with open(filename, "r") as f:
         data = yaml.safe_load(f)
         for entry in data:
             process_name = entry["Process"]
             cs_dict[process_name] = {
-                "cross_section_pb": entry["CrossSection_fb"] / 1000.0,  # fb → pb
+                "process_id": entry.get("ProdID", -1),
+                "cross_section_pb": entry.get("CrossSection_fb", 0.0) / 1000.0,
                 "n_events": entry.get("NumberOfEvents", 0)
             }
     logging.info(f"Loaded cross-section info for {len(cs_dict)} processes")
@@ -66,6 +60,7 @@ def load_cross_sections(filename):
 def discover_processes(root_dir, cross_sections):
     """Scan ROOT_DIR for process directories containing edm4hep/*.root files"""
     processes = {}
+
     for process_dir in Path(root_dir).iterdir():
         edm_dir = process_dir / "edm4hep"
         if not edm_dir.is_dir():
@@ -77,16 +72,18 @@ def discover_processes(root_dir, cross_sections):
             logging.warning(f"Process {process_dir.name} has no .root files")
             continue
 
-        # Try to get cross-section info from the provided YAML
+        # Get cross-section info and ProdID from YAML
         cs_info = cross_sections.get(process_dir.name, {})
+        process_id = cs_info.get("process_id", -1)
         cross_section_pb = cs_info.get("cross_section_pb", 0.0)
         n_events = cs_info.get("n_events", 0)
 
         processes[process_dir.name] = {
+            "process_id": process_id,
             "cross_section_pb": cross_section_pb,
             "n_events": n_events,
             "k_factor": 1.0,
-            "path": str(edm_dir.resolve()),  # absolute path stored once
+            "path": str(edm_dir.resolve()),
             "files": root_files
         }
 
@@ -98,6 +95,7 @@ def discover_processes(root_dir, cross_sections):
 def write_job_yaml(process_name, metadata, chunk_idx, chunk_files):
     job_config = {
         "process": process_name,
+        "process_id": metadata.get("process_id", -1),
         "cross_section_pb": metadata.get("cross_section_pb", 0.0),
         "n_events": metadata.get("n_events", 0),
         "k_factor": metadata.get("k_factor", 1.0),
@@ -132,7 +130,7 @@ def main():
         n_chunks = math.ceil(n_files / CHUNK_SIZE)
 
         logging.info(
-            f"Process {process_name}: {n_files} files → {n_chunks} jobs "
+            f"Process {process_name} (ID={meta['process_id']}): {n_files} files → {n_chunks} jobs "
             f"(chunk size {CHUNK_SIZE})"
         )
 
@@ -147,3 +145,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
