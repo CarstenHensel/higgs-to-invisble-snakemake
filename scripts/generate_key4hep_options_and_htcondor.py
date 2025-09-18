@@ -131,6 +131,7 @@ def main():
     yaml_files = list(Path(YAML_DIR).glob("*.yaml"))
     if not yaml_files:
         logging.error("No YAML files found.")
+        print("No YAML files found. Exiting.")
         return
 
     logging.info(f"Found {len(yaml_files)} job YAMLs.")
@@ -156,6 +157,11 @@ def main():
             logging.error(f"Failed to process {yaml_file}: {e}")
 
     logging.info("All jobs generated successfully.")
+    
+    # ✅ Print the master logfile path
+    master_log_path = Path(LOGFILE).resolve()
+    print(f"\nAll jobs generated. Master logfile: {master_log_path}")
+
 
 if __name__ == "__main__":
     main()
