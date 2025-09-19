@@ -122,17 +122,31 @@ echo "Job finished on $(date)"
     return script_path
 
 def generate_condor_sub(run_script, job_dir):
-    """Creates .sub HTCondor submission file using absolute path"""
+    """Creates .sub HTCondor submission file with resource requests"""
+
     run_script_abs = Path(run_script).resolve()
-    sub_file = f"""executable = {run_script_abs}
+
+    sub_file = f"""universe   = vanilla
+executable = {run_script_abs}
+arguments  = 
+
 output     = {Path(job_dir)/'job.out'}
 error      = {Path(job_dir)/'job.err'}
 log        = {Path(job_dir)/'job.log'}
+
+# Resource requests
+request_cpus   = 1
+request_memory = 4000
+request_disk   = 2GB
++MaxRuntime    = 43200   # 12 hours
+
 queue
 """
+
     sub_path = Path(job_dir) / "job.sub"
     write_file(sub_path, sub_file)
     return sub_path
+
 
 
 # -----------------------------
