@@ -26,11 +26,15 @@ from pathlib import Path
 # -----------------------------
 # User-configurable parameters
 # -----------------------------
+
+# Base directory of the repo (script’s parent folder or git root)
+BASE_DIR = Path(__file__).resolve().parent.parent  # adjust if script is in scripts/
+
 EVTMAX = 3                # Max events per job
 TARGETLUMINOSITY = 1000.0   # Target luminosity for myalg
-YAML_DIR = "job_yamls"      # Directory with YAML job descriptions
+YAML_DIR = BASE_DIR / "job_yamls"      # Directory with YAML job descriptions
 TEMPLATE_FILE = "/afs/cern.ch/user/c/chensel/ILD/workarea/May2025/k4-project-template/k4ProjectTemplate/options/default_options_file.py"  # Options template
-OUTPUT_DIR = "generated_jobs"              # Where all jobs will be written
+OUTPUT_DIR = BASE_DIR / "generated_jobs"              # Where all jobs will be written
 
 # -----------------------------
 # Setup logging (master logfile with timestamp)
