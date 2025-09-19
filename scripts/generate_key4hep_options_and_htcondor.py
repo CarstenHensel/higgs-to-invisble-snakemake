@@ -99,11 +99,21 @@ def write_file(path, content):
 
 
 def generate_run_script(options_file, job_dir):
-    """Creates .sh run script for Condor using absolute path to options file"""
-    options_file_abs = Path(options_file).resolve()  # absolute path
+    """Creates .sh run script for Condor"""
     run_script = f"""#!/bin/bash
 echo "Starting job on $(date)"
-k4run {options_file_abs}
+echo "Running on host $(hostname)"
+echo "Current directory: $(pwd)"
+
+# --- Setup environment ---
+source /cvmfs/sw.hsf.org/key4hep/setup.sh -r 2025-01-28
+cd /afs/cern.ch/user/c/chensel/ILD/workarea/May2025/k4-project-template
+source setup.sh
+
+# --- Run job ---
+cd {job_dir}
+k4run {options_file}
+
 echo "Job finished on $(date)"
 """
     script_path = Path(job_dir) / "run_job.sh"
