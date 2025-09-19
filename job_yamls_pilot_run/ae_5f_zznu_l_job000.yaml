@@ -1,0 +1,9 @@
+process: ae_5f_zznu_l
+process_id: -1
+cross_section_pb: 0.0
+n_events: 0
+k_factor: 1.0
+path: /eos/home-c/chensel/Work/ILC/HtoInv/MC/pilot_samples/ae_5f_zznu_l/edm4hep
+files:
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500237.Pae_5f_zznu_l.eW.pL.n000_001.d_dst_00016317_29.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500239.Pae_5f_zznu_l.eW.pR.n000_001.d_dst_00016317_32.root

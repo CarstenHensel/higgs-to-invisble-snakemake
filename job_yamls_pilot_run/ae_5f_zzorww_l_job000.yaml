@@ -1,0 +1,9 @@
+process: ae_5f_zzorww_l
+process_id: 16317
+cross_section_pb: 4.6408183e-05
+n_events: 600
+k_factor: 1.0
+path: /eos/home-c/chensel/Work/ILC/HtoInv/MC/pilot_samples/ae_5f_zzorww_l/edm4hep
+files:
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500245.Pae_5f_zzorww_l.eW.pL.n000_001.d_dst_00016317_68.root
+- rv02-02.sv02-02.mILD_l5_o1_v02.E250-SetA.I500247.Pae_5f_zzorww_l.eW.pR.n000_001.d_dst_00016317_123.root
