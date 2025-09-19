@@ -118,8 +118,8 @@ k4run {options_file}
 
 # --- Copy output to EOS ---
 for f in *.root; do
-    echo "Copying ${{f}} to EOS: {eos_dir}"
-    xrdcp -f "$f" "{eos_dir}/$f"
+    echo "Copying ${{f}} to EOS: {EOS_OUTPUT_DIR}"
+    xrdcp -f "$f" "{EOS_OUTPUT_DIR}/$f"
     if [ $? -eq 0 ]; then
         echo "Copy successful, removing local file $f"
         rm -f "$f"
