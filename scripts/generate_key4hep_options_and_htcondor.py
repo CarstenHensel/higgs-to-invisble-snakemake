@@ -138,7 +138,7 @@ log        = {Path(job_dir)/'job.log'}
 request_cpus   = 1
 request_memory = 4000
 request_disk   = 2GB
-+MaxRuntime    = 43200   # 12 hours
++MaxRuntime    = 43200  
 
 queue
 """
