@@ -35,6 +35,8 @@ TARGETLUMINOSITY = 1000.0   # Target luminosity for myalg
 YAML_DIR = BASE_DIR / "job_yamls"      # Directory with YAML job descriptions
 TEMPLATE_FILE = "/afs/cern.ch/user/c/chensel/ILD/workarea/May2025/k4-project-template/k4ProjectTemplate/options/default_options_file.py"  # Options template
 OUTPUT_DIR = BASE_DIR / "generated_jobs"              # Where all jobs will be written
+EOS_OUTPUT_DIR = "root://eosuser.cern.ch//eos/home-c/chensel/ILC/KEY4HEP_OUTPUT/PILOT_MC_RUN" # the directory on eos
+
 
 # -----------------------------
 # Setup logging (master logfile with timestamp)
@@ -113,6 +115,19 @@ source setup.sh
 # --- Run job ---
 cd {job_dir}
 k4run {options_file}
+
+# --- Copy output to EOS ---
+for f in *.root; do
+    echo "Copying ${{f}} to EOS: {eos_dir}"
+    xrdcp -f "$f" "{eos_dir}/$f"
+    if [ $? -eq 0 ]; then
+        echo "Copy successful, removing local file $f"
+        rm -f "$f"
+    else
+        echo "Copy failed for $f, keeping local copy"
+    fi
+done
+
 
 echo "Job finished on $(date)"
 """
