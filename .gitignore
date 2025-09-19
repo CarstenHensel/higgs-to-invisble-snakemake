@@ -3,6 +3,10 @@ samples/
 edm4hep/
 ntuples/
 plots/
+key4hep_options/
+htcondor_jobs/
+htcondor_logs/
+
 # Ignore large helper files
 data/all_files.txt
 
