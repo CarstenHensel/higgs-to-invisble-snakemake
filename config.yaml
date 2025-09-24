@@ -1,25 +1,24 @@
 # config.yaml
 
 # slcio2edm4hep_validate_crawler.py
+# TODO: to be changed for full dress rehearsal
 slcio_path: "/afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples"
 slcio_conversion_options: "--dry-run"
 
-datasets:
-  Pqqh:
-    version: rv02-02-01
-    path: samples/Pqqh.slcio
-    cross_section: 0.5
+# define paths, samples, parameters
+# the following lines are examples
+# TODO: update keys with correct values and/or keys
 
-  Zqq:
-    version: rv02-02-01
-    path: samples/Zqq.slcio
-    cross_section: 1.2
+samples: ["signal", "background1", "background2"]
+paths:
+  lcio: "data/lcio"
+  edm4hep: "data/edm4hep"
+  analysis: "results/analysis"
+  plots: "results/plots"
 
-  # Add more datasets here as needed
-  # DatasetName:
-  #   version: ...
-  #   path: samples/YourFile.slcio
-  #   cross_section: ...
+  
+
+
 
 transformations:
   convert:
