@@ -3,7 +3,7 @@ rule convert_lcio:
     Step 3: Convert fetched ROOT files to LCIO format.
     """
     input:
-        directory(config["paths"]["raw_data"])
+        directory(config["paths"]["preprocess_dir"])
     output:
         directory(config["paths"]["processed_data"])
     shell:
