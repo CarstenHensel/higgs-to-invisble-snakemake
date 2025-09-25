@@ -9,5 +9,5 @@ rule xsec_collector:
         "config/master_mc.yaml"
     shell:
         """
-        python scripts/ilc_xsec_collector.py {input} {output}
+        python scripts/{'xsec_collector_dummy.py' if config['mode']=='dummy' else 'ilc_xsec_collector.py'} {input} {output}
         """
