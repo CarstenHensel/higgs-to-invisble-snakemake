@@ -5,7 +5,7 @@ rule preprocess_fetch:
     input:
         "config/lfns_selected.txt"
     output:
-        directory(config["paths"]["raw_data"])
+        directory(config["paths"]["preprocess_dir"])
     shell:
         """
         mkdir -p {output}
