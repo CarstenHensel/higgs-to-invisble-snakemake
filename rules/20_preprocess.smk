@@ -9,8 +9,6 @@ rule preprocess_fetch:
     shell:
         """
         mkdir -p {output}
-        while read lfn; do
-            sample=$(basename $lfn .slcio)
-            bash scripts/fetch_mc.sh $sample {output}
+        python scripts/{'preprocess_dummy.py' if config['mode']=='dummy' else '<real>.py'} {input} {output}
         done < {input}
         """
