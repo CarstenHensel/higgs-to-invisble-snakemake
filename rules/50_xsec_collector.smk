@@ -1,6 +1,6 @@
 rule xsec_collector:
     """
-    Step 4: Query cross-sections + event counts using prod IDs.
+    Step 5: Query cross-sections + event counts using prod IDs.
     Produces a master MC metadata YAML file.
     """
     input:

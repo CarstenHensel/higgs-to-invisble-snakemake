@@ -1,6 +1,6 @@
 rule extract_prod_ids:
     """
-    Step 3: Extract unique production IDs from LCIO LFNs.
+    Step 4: Extract unique production IDs from LCIO LFNs.
     """
     input:
         "config/lfns_selected.txt"

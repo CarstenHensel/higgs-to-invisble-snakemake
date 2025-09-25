@@ -1,6 +1,6 @@
 rule run_key4hep:
     """
-    Step 6: Run Key4hep analysis (HTCondor submission).
+    Step 7: Run Key4hep analysis (HTCondor submission).
     """
     input:
         directory(config["paths"]["processed_data"]),

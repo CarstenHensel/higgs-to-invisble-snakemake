@@ -1,6 +1,6 @@
 rule generate_condor_jobs:
     """
-    Step 5: Generate condor job yamls and Key4hep option files.
+    Step 6: Generate condor job yamls and Key4hep option files.
     """
     input:
         "config/master_mc.yaml"

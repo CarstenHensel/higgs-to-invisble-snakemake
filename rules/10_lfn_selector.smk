@@ -1,6 +1,6 @@
 rule create_lfn_list:
     """
-    Step 0: Create filtered LFN list from master list (all_files.txt).
+    Step 1: Create filtered LFN list from master list (all_files.txt).
     Previously called 'full_pilot_selection.py' → rename to 'lfn_selector.py'.
     """
     input:

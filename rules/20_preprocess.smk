@@ -1,6 +1,6 @@
 rule preprocess_fetch:
     """
-    Step 1: Download MC files from selected LFNs.
+    Step 2: Download MC files from selected LFNs.
     """
     input:
         "config/lfns_selected.txt"
