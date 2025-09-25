@@ -3,10 +3,10 @@ rule run_key4hep:
     Step 7: Run Key4hep analysis (HTCondor submission).
     """
     input:
-        directory(config["paths"]["processed_data"]),
-        "config/key4hep_options/"
+        config["paths"]["converted_dir"],    # data files to analyze
+        config["paths"]["key4hep_dir"]       # HTCondor / Key4hep options
     output:
-        directory(config["paths"]["key4hep_output"])
+        directory(config["paths"]["analysis_output"])
     shell:
         """
         mkdir -p {output}
