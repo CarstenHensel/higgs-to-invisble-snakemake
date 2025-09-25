@@ -9,8 +9,7 @@ rule make_plots:
     shell:
         """
         mkdir -p {output}
-        for f in {input}/*.root; do
-            sample=$(basename $f _histos.root)
-            python scripts/make_plots.py $f {output}/$sample_summary.pdf
+        # TODO: add correct script name for 'real' mode
+        python scripts/{'plotting_dummy.py' if config['mode']=='dummy' else '<real>.py'} {input} {output}
         done
         """
