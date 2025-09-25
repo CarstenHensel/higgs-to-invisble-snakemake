@@ -7,6 +7,8 @@ slcio_conversion_options: "--dry-run"
 
 # Global configuration for Snakemake workflow
 
+mode: "dummy"   # options: "dummy" or "real" (switching between dummy and real scripts)
+
 paths:
   # Input/output structure
   master_lfn_list: "inputs/all_files.txt"              # input list of all LFNs
