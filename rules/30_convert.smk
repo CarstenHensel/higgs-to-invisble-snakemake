@@ -9,8 +9,6 @@ rule convert_lcio:
     shell:
         """
         mkdir -p {output}
-        for f in {input}/*.root; do
-            sample=$(basename $f .root)
-            bash scripts/convert_lcio.sh $f {output}/$sample.slcio
+        python scripts/{'convert_dummy.py' if config['mode']=='dummy' else 'slcio2edm4hep_validate_crawler.py'} {input} {output}
         done
         """
