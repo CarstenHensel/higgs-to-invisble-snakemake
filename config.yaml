@@ -5,28 +5,18 @@
 slcio_path: "/afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples"
 slcio_conversion_options: "--dry-run"
 
-# define paths, samples, parameters
-# the following lines are examples
-# TODO: update keys with correct values and/or keys
+# Global configuration for Snakemake workflow
 
-samples: ["signal", "background1", "background2"]
 paths:
-  lcio: "data/lcio"
-  edm4hep: "data/edm4hep"
-  analysis: "results/analysis"
-  plots: "results/plots"
-
-  
-
-
-
-transformations:
-  convert:
-    script: scripts/convert_lcio.py
-    output_dir: edm4hep
-  analysis:
-    script: scripts/analysis.py
-    output_dir: ntuples
-
-helper_files:
-  all_mc: data/all_files.txt
+  # Input/output structure
+  master_lfn_list: "inputs/all_files.txt"              # input list of all LFNs
+  lfn_list: "outputs/lfn_list.txt"                     # filtered LFN list
+  preprocess_dir: "outputs/preprocess"                 # fetched LFNs
+  converted_dir: "outputs/converted"                   # LCIO -> ROOT outputs
+  prod_ids: "outputs/production_ids.txt"               # unique production IDs
+  mc_xsec_yaml: "outputs/mc_xsec.yaml"                 # cross-section master file
+  job_yaml_dir: "outputs/job_yamls"                    # Condor job yamls
+  key4hep_dir: "outputs/key4hep"                       # Key4hep job configs + outputs
+  analysis_output: "outputs/analysis"                  # physics analysis outputs
+  plots: "outputs/plots"                               # final plots
+  summary: "outputs/summary"                           # final summary tables/reports
