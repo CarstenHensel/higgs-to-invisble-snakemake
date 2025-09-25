@@ -11,8 +11,7 @@ rule run_key4hep:
         """
         mkdir -p {output}
         # This would submit jobs to HTCondor in real workflow
-        for f in {input[0]}/*.slcio; do
-            sample=$(basename $f .slcio)
-            python scripts/run_key4hep.py $f {output}/$sample_analysis.root
+        ### TODO: add corrct script for the 'real' mode
+        python scripts/{'key4hep_analysis_dummy.py' if config['mode']=='dummy' else '<real>.py'} {input} {output}
         done
         """
