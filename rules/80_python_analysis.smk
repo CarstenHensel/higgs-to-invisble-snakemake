@@ -3,13 +3,13 @@ rule run_python_analysis:
     Step 8: Run Python analysis to produce histogram/cutflow ROOT files.
     """
     input:
-        config["paths"]["key4hep_output"]
+        config["paths"]["converted_dir"],  # converted LCIO/ROOT files
+        config["paths"]["key4hep_dir"]     # Key4hep option files
     output:
         directory(config["paths"]["analysis_output"])
     shell:
         """
         mkdir -p {output}
-        ### TODO: add correct script for 'real' mode
-        python scripts/{'python_analysis_dummy.py' if config['mode']=='dummy' else '<real>.py'} {input} {output}
-        done
+        # Dummy/real switch
+        python scripts/{'python_analysis_dummy.py' if config['mode']=='dummy' else 'python_analysis.py'} {input} {output}
         """
