@@ -10,6 +10,6 @@ rule generate_condor_jobs:
     shell:
         """
         mkdir -p {output}
-        python scripts/generate_job_yamls.py {input} config/condor_jobs/
-        python scripts/generate_key4hep_options_and_htcondor.py {input} config/key4hep_options/
+        python scripts/{'job_gen_dummy.py' if config['mode']=='dummy' else 'generate_job_yamls.py'} {input} config/condor_jobs/
+        python scripts/{'key4hep_condor_dummy.py' if config['mode']=='dummy' else 'generate_key4hep_options_and_htcondor.py'} {input} config/key4hep_options/
         """
