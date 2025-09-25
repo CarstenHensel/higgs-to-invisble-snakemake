@@ -9,5 +9,6 @@ rule final_summary:
     shell:
         """
         mkdir -p {config[paths][summary]}
-        python scripts/final_summary.py {input} {output}
+        # TODO: add correct script name for 'real' mode.
+        python scripts/{'summary_dummy.py' if config['mode']=='dummy' else '<real>.py'} {input} {output}
         """
