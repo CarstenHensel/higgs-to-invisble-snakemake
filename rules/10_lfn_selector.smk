@@ -9,5 +9,5 @@ rule create_lfn_list:
         "config/lfns_selected.txt"
     shell:
         """
-        python scripts/lfn_selector.py {input} {output}
+        python scripts/{'lfn_selector_dummy.py' if config['mode']=='dummy' else 'lfn_selector.py'} {input} {output}        
         """
