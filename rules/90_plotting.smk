@@ -1,15 +1,15 @@
-rule make_plots:
+rule generate_plots:
     """
-    Step 9: Generate plots from Python analysis outputs.
+    Step 9: Generate plots from Python analysis.
     """
     input:
-        directory(config["paths"]["analysis_output"])
+        config["paths"]["analysis_output"]
     output:
         directory(config["paths"]["plots"])
-    shell:
-        """
-        mkdir -p {output}
-        # TODO: add correct script name for 'real' mode
-        python scripts/{'plotting_dummy.py' if config['mode']=='dummy' else '<real>.py'} {input} {output}
-        done
-        """
+    run:
+        input_dir = str(input)
+        output_dir = str(output)
+        script_name = 'plotting_dummy.py' if config['mode']=='dummy' else 'plotting.py'
+        print(f"Running script: {script_name} {input_dir} {output_dir}")
+        shell(f"python scripts/{script_name} {input_dir} {output_dir}")
+

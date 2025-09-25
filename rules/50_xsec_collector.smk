@@ -1,13 +1,15 @@
-rule xsec_collector:
+rule collect_xsec:
     """
-    Step 5: Query cross-sections + event counts using prod IDs.
-    Produces a master MC metadata YAML file.
+    Step 5: Query cross-sections and number of events for MC productions.
     """
     input:
-        "config/prod_ids.txt"
+        config["paths"]["prod_ids"]
     output:
-        "config/master_mc.yaml"
-    shell:
-        """
-        python scripts/{'xsec_collector_dummy.py' if config['mode']=='dummy' else 'ilc_xsec_collector.py'} {input} {output}
-        """
+        config["paths"]["mc_xsec_yaml"]
+    run:
+        input_file = str(input)
+        output_file = str(output)
+        script_name = 'xsec_collector_dummy.py' if config['mode']=='dummy' else 'ilc_xsec_collector.py'
+        print(f"Running script: {script_name} {input_file} {output_file}")
+        shell(f"python scripts/{script_name} {input_file} {output_file}")
+

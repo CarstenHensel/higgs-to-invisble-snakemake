@@ -1,13 +1,14 @@
-rule create_lfn_list:
+rule lfn_selector:
     """
-    Step 1: Create filtered LFN list from master list (all_files.txt).
-    Previously called 'full_pilot_selection.py' → rename to 'lfn_selector.py'.
+    Step 1: Select relevant LFNs from the master list.
     """
     input:
-        "all_files.txt"
+        config["paths"]["master_lfn_list"]
     output:
-        "config/lfns_selected.txt"
-    shell:
-        """
-        python scripts/{'lfn_selector_dummy.py' if config['mode']=='dummy' else 'lfn_selector.py'} {input} {output}        
-        """
+        config["paths"]["lfn_list"]
+    run:
+        input_file = str(input)
+        output_file = str(output)
+        script_name = 'lfn_selector_dummy.py' if config['mode']=='dummy' else 'lfn_selector.py'
+        print(f"Running script: {script_name} {input_file} {output_file}")
+        shell(f"python scripts/{script_name} {input_file} {output_file}")

@@ -1,14 +1,15 @@
 rule preprocess_fetch:
     """
-    Step 2: Download MC files from selected LFNs.
+    Step 2: Preprocess LFNs.
     """
     input:
-        "config/lfns_selected.txt"
+        config["paths"]["lfn_list"]
     output:
         directory(config["paths"]["preprocess_dir"])
-    shell:
-        """
-        mkdir -p {output}
-        python scripts/{'preprocess_dummy.py' if config['mode']=='dummy' else '<real>.py'} {input} {output}
-        done < {input}
-        """
+    run:
+        input_file = str(input)
+        output_dir = str(output)
+        script_name = 'preprocess_dummy.py' if config['mode']=='dummy' else 'preprocess.py'
+        print(f"Running script: {script_name} {input_file} {output_dir}")
+        shell(f"python scripts/{script_name} {input_file} {output_dir}")
+

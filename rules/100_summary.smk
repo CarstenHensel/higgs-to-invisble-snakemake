@@ -1,14 +1,16 @@
-rule final_summary:
+rule make_summary:
     """
-    Step 10: Aggregate all plots and results.
+    Step 10: Create final summary.
     """
     input:
-        directory(config["paths"]["plots"])
+        config["paths"]["plots"]
     output:
-        "{path}/final_summary.txt".format(path=config["paths"]["summary"])
-    shell:
-        """
-        mkdir -p {config[paths][summary]}
-        # TODO: add correct script name for 'real' mode.
-        python scripts/{'summary_dummy.py' if config['mode']=='dummy' else '<real>.py'} {input} {output}
-        """
+        directory(config["paths"]["summary"])
+    run:
+        input_dir = str(input)
+        output_dir = str(output)
+        script_name = 'summary_dummy.py' if config['mode']=='dummy' else 'summary.py'
+        print(f"Running script: {script_name} {input_dir} {output_dir}")
+        shell(f"python scripts/{script_name} {input_dir} {output_dir}")
+
+
