@@ -9,8 +9,7 @@ rule run_python_analysis:
     shell:
         """
         mkdir -p {output}
-        for f in {input}/*.root; do
-            sample=$(basename $f _analysis.root)
-            python scripts/python_analysis.py $f {output}/$sample_histos.root
+        ### TODO: add correct script for 'real' mode
+        python scripts/{'python_analysis_dummy.py' if config['mode']=='dummy' else '<real>.py'} {input} {output}
         done
         """
