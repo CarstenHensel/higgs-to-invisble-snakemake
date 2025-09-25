@@ -8,5 +8,6 @@ rule extract_prod_ids:
         "config/prod_ids.txt"
     shell:
         """
+        python scripts/{'extract_ids_dummy.py' if config['mode']=='dummy' else '<real>.py'} {input} {output}
         python scripts/extract_prod_ids.py {input} {output}
         """
