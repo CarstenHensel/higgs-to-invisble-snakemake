@@ -5,6 +5,7 @@ rule make_summary:
     input:
         config["paths"]["plots"]
     output:
+        "summary.txt"
         directory(config["paths"]["summary"])
     run:
         input_dir = str(input)
