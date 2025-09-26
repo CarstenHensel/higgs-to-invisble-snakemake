@@ -1,12 +1,9 @@
-#!/usr/bin/env python3
 import sys, os
+input_file = sys.argv[1]
+output_dir = sys.argv[2]
 
-if __name__ == "__main__":
-    input_file = sys.argv[1]
-    output_dir = sys.argv[2]
+print(f"[DUMMY] Preprocessing LFNs from {input_file} -> {output_dir}")
+os.makedirs(output_dir, exist_ok=True)
 
-    os.makedirs(output_dir, exist_ok=True)
-    with open(os.path.join(output_dir, "fetched_file.root"), "w") as f:
-        f.write("# Dummy fetched ROOT file\n")
-
-    print(f"[preprocess_dummy] created dummy fetched file in {output_dir}")
+with open(os.path.join(output_dir, "dummy_preprocessed.txt"), "w") as f:
+    f.write("dummy_data\n")
