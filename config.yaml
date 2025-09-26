@@ -14,11 +14,12 @@ paths:
   master_lfn_list: "inputs/all_files.txt"              # input list of all LFNs
   lfn_list: "outputs/lfn_list.txt"                     # filtered LFN list
   preprocess_dir: "outputs/preprocess"                 # fetched LFNs
-  converted_dir: "outputs/converted"                   # LCIO -> ROOT outputs
+  converted_dir: "outputs/converted"                   # LCIO -> EDM4hep outputs
   prod_ids: "outputs/production_ids.txt"               # unique production IDs
   mc_xsec_yaml: "outputs/mc_xsec.yaml"                 # cross-section master file
-  job_yaml_dir: "outputs/job_yamls"                    # Condor job yamls
-  key4hep_dir: "outputs/key4hep"                       # Key4hep job configs + outputs
-  analysis_output: "outputs/analysis"                  # physics analysis outputs
+  job_yaml_dir: "outputs/job_yamls"                    # Condor job YAMLs
+  key4hep_dir: "outputs/key4hep"                       # Key4hep job configs
+  key4hep_output: "outputs/key4hep_output"             # outputs from Key4hep jobs
+  python_analysis_output: "outputs/python_analysis"    # outputs from Python analysis step
   plots: "outputs/plots"                               # final plots
   summary: "outputs/summary"                           # final summary tables/reports
