@@ -22,4 +22,3 @@ paths:
   analysis_output: "outputs/analysis"                  # physics analysis outputs
   plots: "outputs/plots"                               # final plots
   summary: "outputs/summary"                           # final summary tables/reports
-

@@ -1,37 +1,14 @@
-# ============================
-# Snakefile for Higgs→Invisible analysis
-# ============================
+import yaml
+import os
+import glob
 
-import pathlib
-from snakemake.shell import shell
-
-# ----------------------------
-# Load configuration
-# ----------------------------
+# Load config
 configfile: "config.yaml"
 
-# ----------------------------
-# Centralized helper
-# ----------------------------
-def dummy_or_real(output, cmd):
-    """
-    Run command in 'real' mode, or just touch outputs in 'dummy' mode.
-    """
-    if config.get("mode") == "dummy":
-        for f in (output if isinstance(output, list) or isinstance(output, tuple) else [output]):
-            # handle directories vs files
-            p = pathlib.Path(str(f))
-            if str(f).endswith("/"):  # crude dir detection
-                p.mkdir(parents=True, exist_ok=True)
-            else:
-                p.parent.mkdir(parents=True, exist_ok=True)
-                p.touch()
-    else:
-        shell(cmd)
-
-# ----------------------------
 # Include all rule files
-# ----------------------------
+for rule_file in glob.glob("rules/*.smk"):
+    include: rule_file
+
 include: "rules/10_lfn_selector.smk"
 include: "rules/20_preprocess.smk"
 include: "rules/30_convert.smk"
@@ -41,11 +18,14 @@ include: "rules/60_job_generation.smk"
 include: "rules/70_analysis.smk"
 include: "rules/80_python_analysis.smk"
 include: "rules/90_plotting.smk"
-include: "rules/100_summary.smk"
+include: "rules/100_summary.smk" 
 
-# ----------------------------
-# Final target
-# ----------------------------
+conversion_target = f"{config['slcio_path']}/.conversion_done"
+mc_targets = ["mc_metadata.yaml", "job_yamls"]
+
 rule all:
     input:
-        "summary.txt"
+        "xsecs.yaml",
+        conversion_target,
+        *mc_targets
+
