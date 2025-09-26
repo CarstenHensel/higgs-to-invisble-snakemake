@@ -1,33 +1,25 @@
 # config.yaml
 
 # slcio2edm4hep_validate_crawler.py
+# TODO: to be changed for full dress rehearsal
 slcio_path: "/afs/cern.ch/user/c/chensel/cernbox/ILC/HtoInv/MC/pilot_samples"
 slcio_conversion_options: "--dry-run"
 
-datasets:
-  Pqqh:
-    version: rv02-02-01
-    path: samples/Pqqh.slcio
-    cross_section: 0.5
+# Global configuration for Snakemake workflow
 
-  Zqq:
-    version: rv02-02-01
-    path: samples/Zqq.slcio
-    cross_section: 1.2
+mode: "dummy"   # options: "dummy" or "real" (switching between dummy and real scripts)
 
-  # Add more datasets here as needed
-  # DatasetName:
-  #   version: ...
-  #   path: samples/YourFile.slcio
-  #   cross_section: ...
-
-transformations:
-  convert:
-    script: scripts/convert_lcio.py
-    output_dir: edm4hep
-  analysis:
-    script: scripts/analysis.py
-    output_dir: ntuples
-
-helper_files:
-  all_mc: data/all_files.txt
+paths:
+  # Input/output structure
+  master_lfn_list: "inputs/all_files.txt"              # input list of all LFNs
+  lfn_list: "outputs/lfn_list.txt"                     # filtered LFN list
+  preprocess_dir: "outputs/preprocess"                 # fetched LFNs
+  converted_dir: "outputs/converted"                   # LCIO -> EDM4hep outputs
+  prod_ids: "outputs/production_ids.txt"               # unique production IDs
+  mc_xsec_yaml: "outputs/mc_xsec.yaml"                 # cross-section master file
+  job_yaml_dir: "outputs/job_yamls"                    # Condor job YAMLs
+  key4hep_dir: "outputs/key4hep"                       # Key4hep job configs
+  key4hep_output: "outputs/key4hep_output"             # outputs from Key4hep jobs
+  python_analysis_output: "outputs/python_analysis"    # outputs from Python analysis step
+  plots: "outputs/plots"                               # final plots
+  summary: "outputs/summary"                           # final summary tables/reports
