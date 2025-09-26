@@ -1,12 +1,14 @@
-#!/usr/bin/env python3
-import sys, os
+import sys, yaml
+input_file = sys.argv[1]
+output_file = sys.argv[2]
 
-if __name__ == "__main__":
-    input_file = sys.argv[1]
-    output_file = sys.argv[2]
+print(f"[DUMMY] Collecting MC cross-sections from {input_file} -> {output_file}")
 
-    os.makedirs(os.path.dirname(output_file), exist_ok=True)
-    with open(output_file, "w") as f:
-        f.write("# Dummy MC cross-sections\nprod_001: 123 pb\nprod_002: 456 pb\n")
+mc_data = {
+    "PROD1": {"xsec": 1.0, "nevents": 1000},
+    "PROD2": {"xsec": 0.5, "nevents": 2000},
+    "PROD3": {"xsec": 2.0, "nevents": 1500},
+}
 
-    print(f"[xsec_collector_dummy] wrote dummy xsec data to {output_file}")
+with open(output_file, "w") as f:
+    yaml.dump(mc_data, f)
