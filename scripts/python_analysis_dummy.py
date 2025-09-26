@@ -1,12 +1,9 @@
-#!/usr/bin/env python3
 import sys, os
+input_files = sys.argv[1:-1]
+output_dir = sys.argv[-1]
 
-if __name__ == "__main__":
-    input_dir = sys.argv[1]
-    output_dir = sys.argv[2]
+print(f"[DUMMY] Running Python analysis on {input_files} -> {output_dir}")
+os.makedirs(output_dir, exist_ok=True)
 
-    os.makedirs(output_dir, exist_ok=True)
-    with open(os.path.join(output_dir, "histograms.root"), "w") as f:
-        f.write("# Dummy histograms\n")
-
-    print(f"[python_analysis_dummy] created dummy histograms in {output_dir}")
+with open(os.path.join(output_dir, "python_analysis_dummy.root"), "w") as f:
+    f.write("dummy ROOT histogram data\n")
