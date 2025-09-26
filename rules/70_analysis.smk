@@ -6,7 +6,7 @@ rule run_key4hep:
         config["paths"]["converted_dir"],
         config["paths"]["key4hep_dir"]
     output:
-        directory(config["paths"]["analysis_output"])
+        directory(config["paths"]["outout"])
     run:
         input_files = " ".join(input) if isinstance(input, list) else str(input)
         output_dir = str(output)
