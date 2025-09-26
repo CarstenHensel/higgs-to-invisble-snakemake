@@ -9,7 +9,7 @@ slcio_conversion_options: "--dry-run"
 
 mode: "dummy"   # options: "dummy" or "real" (switching between dummy and real scripts)
 
-aths:
+paths:
   # Input/output structure
   master_lfn_list: "inputs/all_files.txt"              # input list of all LFNs
   lfn_list: "outputs/lfn_list.txt"                     # filtered LFN list
