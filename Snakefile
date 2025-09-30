@@ -46,6 +46,17 @@ include: "rules/100_summary.smk"
 # ----------------------------
 # Final target
 # ----------------------------
-rule all:
+
+
+rule all_rules:
     input:
-        "summary.txt"
+        "outputs/lfn_selector.done",
+        "outputs/preprocess_fetch.done",
+        "outputs/convert_lcio.done",
+        "outputs/extract_prod_ids.done",
+        "outputs/collect_xsec.done",
+        "outputs/generate_job_yaml.done",
+        "outputs/run_key4hep.done",
+        "outputs/run_python_analysis.done",
+        "outputs/run_plotting.done",
+        "outputs/make_summary.done"
