@@ -188,17 +188,29 @@ ApplicationMgr( TopAlg = alg_list,
         f.write(textwrap.dedent(content))
 
 
+
 def _make_output_filename_from_lfn(lfn: str, prodid: int, idx: int):
     """
-    Create a short, deterministic ROOT filename from an input LFN.
-    e.g. LFN:/.../something.slcio -> myalg_higgs_to_invisible_<prodid>_<idx>.root
+    Create a deterministic ROOT filename from an input LFN embedding metadata.
+    Example: 
+    LFN:/ilc/prod/.../00015420/000/rv02-02-01.sv02-02-01.mILD_l5_o2_v02.E250-SetA.I402011.Pqqh.eL.pR.n000_001.d_dst_00015420_175.slcio
+    → myalg_higgs_to_invisible_15420_E250-SetA_Pqqh_00015420_175.root
     """
-    # strip leading LFN: if present
     raw = lfn.split("LFN:")[-1]
     basename = raw.split("/")[-1]
-    # remove extension if any
-    stem = basename.split(".")[0]
-    return f"myalg_higgs_to_invisible_{prodid}_{idx}.root"
+    stem = basename.replace(".slcio", "")
+    
+    # attempt to parse metadata fields from the stem if possible
+    # split by '.' or '_' to find useful tags
+    parts = stem.split(".")
+    if len(parts) >= 4:
+        # e.g. take last 3 parts as short metadata tag
+        sample_tag = "_".join(parts[-3:])
+    else:
+        sample_tag = stem  # fallback to entire stem
+    
+    # final filename
+    return f"myalg_higgs_to_invisible_{prodid}_{sample_tag}.root"
 
 
 def write_submit_file(path: Path, prodid: int, input_files):
