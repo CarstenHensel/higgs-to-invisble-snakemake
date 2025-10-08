@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-bulletproof_hinv_lfns_skip_susy.py
+bulletproof_hinv_lfns_final.py
 
-Parse ILD MC-2020 LFNs robustly, compare processes, but skip SUSY processes in comparisons.
-At the end, also list all unique SUSY processes found.
+Parse ILD MC-2020 LFNs robustly, compare processes while skipping SUSY processes,
+and ignore differences in the 'another file number' folder under the process ID.
 """
 
 import re
@@ -13,17 +13,18 @@ from pathlib import Path
 
 # Robust regex for ILD MC-2020 LFNs
 pattern = re.compile(
-    r"(?P<rest>.+?)"
-    r"\.E\d+(?:-[A-Za-z0-9]+)?"
-    r"\.I(?P<genid>\d+)"
-    r"\.P(?P<process>.+?)"
-    r"\.e[LR]\.p[LR]"
-    r"\.n\d{1,5}[_\.]?\d{1,5}"
-    r"\.d_dst_(?P<procid>\d+)_\d+\.slcio",
-    re.IGNORECASE,
+    r"(?P<rest>.+?)"                     # anything before energy tag
+    r"\.E\d+(?:-[A-Za-z0-9]+)?"          # energy + optional Set tag
+    r"\.I(?P<genid>\d+)"                 # generator ID
+    r"\.P(?P<process>.+?)"               # process name
+    r"\.e[LR]\.p[LR]"                    # polarization (case-insensitive)
+    r"\.n\d{1,5}[_\.]?\d{1,5}"           # n_number (1-5 digits each part)
+    r"\.d_dst_(?P<procid>\d+)_"          # process ID
+    r"\d+\.slcio",                        # file ID
+    re.IGNORECASE
 )
 
-# SUSY detection pattern: neutralinos or selectrons + Higgs, optionally followed by _dd/_uu/_ss
+# SUSY detection pattern: neutralinos or selectrons + Higgs, optional _dd/_uu/_ss
 susy_pattern = re.compile(r"^[ne]\d+[ne]?\d*h(_[dus]{2})?$", re.IGNORECASE)
 
 def parse_lfns(file_path):
@@ -54,7 +55,15 @@ def parse_lfns(file_path):
                 susy_processes.add(process)
                 continue  # skip SUSY in main comparison
 
-            mapping[process][(genid, procid)].add(rest)
+            # Ignore differences in the 'another file number' subdirectory
+            rest_parts = rest.split('/')
+            if len(rest_parts) >= 2:
+                # Keep everything except the last folder (subdirectory number)
+                rest_cleaned = '/'.join(rest_parts[:-1])
+            else:
+                rest_cleaned = rest
+
+            mapping[process][(genid, procid)].add(rest_cleaned)
 
     return mapping, all_entries, susy_processes
 
@@ -85,7 +94,7 @@ def main():
     import argparse
 
     parser = argparse.ArgumentParser(
-        description="Map ILD MC-2020 LFNs while skipping SUSY processes in comparisons."
+        description="Map ILD MC-2020 LFNs while skipping SUSY processes and ignoring bookkeeping folders."
     )
     parser.add_argument("lfn_file", type=Path, help="Path to text file containing LFNs")
     parser.add_argument("-o", "--output", type=Path, default=None,
