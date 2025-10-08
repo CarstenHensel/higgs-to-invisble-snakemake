@@ -1,15 +1,9 @@
 #!/usr/bin/env python3
 """
-analyze_hinv_lfns.py
+bulletproof_hinv_lfns_skip_susy.py
 
-Parses a text file containing LFNs (one per line) and extracts:
-  - process name
-  - generator ID
-  - process ID
-  - rest of path (path before .E250-SetA)
-Maps processes to all their generator/process ID combinations and identifies differences in rest-of-paths.
-
-Optionally writes results to a CSV file for further analysis.
+Parse ILD MC-2020 LFNs robustly, compare processes, but skip SUSY processes in comparisons.
+At the end, also list all unique SUSY processes found.
 """
 
 import re
@@ -17,18 +11,30 @@ import csv
 from collections import defaultdict
 from pathlib import Path
 
-# Regex pattern to extract relevant parts
+# Robust regex for ILD MC-2020 LFNs
 pattern = re.compile(
-    r"(?P<rest>.+?)\.E250-SetA\.I(?P<genid>\d+)\.P(?P<process>[A-Za-z0-9]+)\.(?P<pol>e[LR]\.p[LR])\.n\d+\.d_dst_(?P<procid>\d+)_\d+\.slcio"
+    r"(?P<rest>.+?)"
+    r"\.E\d+(?:-[A-Za-z0-9]+)?"
+    r"\.I(?P<genid>\d+)"
+    r"\.P(?P<process>.+?)"
+    r"\.e[LR]\.p[LR]"
+    r"\.n\d{1,5}[_\.]?\d{1,5}"
+    r"\.d_dst_(?P<procid>\d+)_\d+\.slcio",
+    re.IGNORECASE,
 )
+
+# SUSY detection pattern: neutralinos or selectrons + Higgs, optionally followed by _dd/_uu/_ss
+susy_pattern = re.compile(r"^[ne]\d+[ne]?\d*h(_[dus]{2})?$", re.IGNORECASE)
 
 def parse_lfns(file_path):
     mapping = defaultdict(lambda: defaultdict(set))
+    susy_processes = set()
     all_entries = []
 
-    with open(file_path) as f:
+    with open(file_path, "rb") as f:
         for line in f:
-            line = line.strip()
+            # Normalize line
+            line = line.strip().replace(b"\r", b"").decode("utf-8", errors="ignore")
             if not line:
                 continue
 
@@ -42,16 +48,20 @@ def parse_lfns(file_path):
             procid = match.group("procid")
             rest = match.group("rest")
 
-            mapping[process][(genid, procid)].add(rest)
             all_entries.append((process, genid, procid, rest))
 
-    return mapping, all_entries
+            if susy_pattern.match(process):
+                susy_processes.add(process)
+                continue  # skip SUSY in main comparison
+
+            mapping[process][(genid, procid)].add(rest)
+
+    return mapping, all_entries, susy_processes
 
 def summarize(mapping):
     for process, combos in mapping.items():
         print(f"\n🧩 Process: {process}")
         print(f"  Found {len(combos)} generator/process ID combinations:\n")
-
         for (genid, procid), rests in combos.items():
             print(f"    - Generator ID: {genid}, Process ID: {procid}")
             for r in rests:
@@ -75,17 +85,21 @@ def main():
     import argparse
 
     parser = argparse.ArgumentParser(
-        description="Map process names to generator/process ID combinations from LFN list."
+        description="Map ILD MC-2020 LFNs while skipping SUSY processes in comparisons."
     )
     parser.add_argument("lfn_file", type=Path, help="Path to text file containing LFNs")
-    parser.add_argument(
-        "-o", "--output", type=Path, default=None,
-        help="Optional CSV output file (e.g. output.csv)"
-    )
+    parser.add_argument("-o", "--output", type=Path, default=None,
+                        help="Optional CSV output file")
     args = parser.parse_args()
 
-    mapping, entries = parse_lfns(args.lfn_file)
+    mapping, entries, susy_processes = parse_lfns(args.lfn_file)
+
+    print("\n=== NON-SUSY PROCESS COMPARISON ===")
     summarize(mapping)
+
+    print("\n=== UNIQUE SUSY PROCESSES FOUND ===")
+    for p in sorted(susy_processes):
+        print(f"  - {p}")
 
     if args.output:
         write_csv(entries, args.output)
