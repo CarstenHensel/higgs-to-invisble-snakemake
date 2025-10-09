@@ -4,6 +4,7 @@ ilc_xsec_collector.py
 
 Modified to combine multiple production IDs of the same process
 into a single YAML entry with summed number of events.
+SUSY processes are filtered out.
 """
 
 import re
@@ -12,6 +13,23 @@ import yaml
 import logging
 import argparse
 from collections import defaultdict
+
+# -------------------------------
+# SUSY process keywords
+# -------------------------------
+SUSY_KEYWORDS = [
+    "n1n1h", "n23n23h", "e1e1h", "e2e2h", "e3e3h",
+    "n23n23h_dd", "n23n23h_uu", "n23n23h_ss",
+    "n1n1h_dd", "n1n1h_uu", "n1n1h_ss",
+    "e3e3h_dd", "e3e3h_uu", "e3e3h_ss",
+    "e2e2h_dd", "e2e2h_uu", "e2e2h_ss",
+    "e1e1h_dd", "e1e1h_uu", "e1e1h_ss",
+    "qqh_e2e2", "qqh_e3e3"
+]
+
+def is_susy_process(process_name: str) -> bool:
+    """Check if the process name matches a SUSY keyword."""
+    return any(tag in process_name for tag in SUSY_KEYWORDS)
 
 # -------------------------------
 # Argument parsing
@@ -70,6 +88,13 @@ def main():
             match = prod_pattern.search(line)
             if match:
                 gen_id, process_name, prod_id = match.groups()
+
+                # --- SUSY filter ---
+                if is_susy_process(process_name):
+                    logging.info(f"Skipping SUSY process: {process_name}, ProdID={prod_id}")
+                    continue
+                # -------------------
+
                 key = (gen_id, process_name)
                 if prod_id not in process_dict[key]["ProductionIDs"]:
                     process_dict[key]["ProductionIDs"].append(prod_id)
@@ -77,7 +102,7 @@ def main():
             else:
                 logging.warning(f"Could not parse LFN: {line}")
 
-    logging.info(f"Found {len(process_dict)} unique process entries (by GenID + Process).")
+    logging.info(f"Found {len(process_dict)} unique process entries (by GenID + Process) after SUSY filtering.")
 
     # Step 2 & 3: Query dirac-ilc-get-info per production
     for (gen_id, process_name), info in process_dict.items():
