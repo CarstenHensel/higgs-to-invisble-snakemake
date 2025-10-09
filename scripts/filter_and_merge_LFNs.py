@@ -41,7 +41,8 @@ SUSY_KEYWORDS = [
     "n1n1h_dd", "n1n1h_uu", "n1n1h_ss",
     "e3e3h_dd", "e3e3h_uu", "e3e3h_ss",
     "e2e2h_dd", "e2e2h_uu", "e2e2h_ss",
-    "e1e1h_dd", "e1e1h_uu", "e1e1h_ss"
+    "e1e1h_dd", "e1e1h_uu", "e1e1h_ss",
+    "qqh_e2e2", "qqh_e3e3"
 ]
 
 # Regex to extract version and process name
