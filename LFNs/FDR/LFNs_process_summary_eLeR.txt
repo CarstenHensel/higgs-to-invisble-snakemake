@@ -1,0 +1,18 @@
+Process                                  | Versions Found                      | Selected
+------------------------------------------------------------------------------------------
+2f_Z_hadronic                            | v02-02-01                           | v02-02-01
+2f_eehiq_eL_pR                           | v02-02                              | v02-02
+2f_hadronic_eL_pR                        | v02-02                              | v02-02
+4f_WW_hadronic                           | v02-02-01                           | v02-02-01
+4f_WW_leptonic                           | v02-02                              | v02-02
+4f_WW_semileptonic                       | v02-02-01                           | v02-02-01
+4f_ZZWWMix_hadronic                      | v02-02-01                           | v02-02-01
+4f_ZZ_hadronic                           | v02-02-01                           | v02-02-01
+4f_ZZ_semileptonic                       | v02-02-01                           | v02-02-01
+4f_ZZnunu_semileptonic                   | v02-02-01                           | v02-02-01
+4f_singleW_semileptonic                  | v02-02-01                           | v02-02-01
+4f_singleZee_semileptonic                | v02-02-01                           | v02-02-01
+4f_singleZnunu_semileptonic              | v02-02-01                           | v02-02-01
+6f                                       | v02-02                              | v02-02
+higgs                                    | v02-02, v02-02-01                   | v02-02-01
+higgs_excl                               | v02-02, v02-02-01                   | v02-02-01
