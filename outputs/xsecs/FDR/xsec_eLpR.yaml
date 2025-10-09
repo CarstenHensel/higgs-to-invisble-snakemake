@@ -225,17 +225,3 @@
   CrossSection_fb: 8.98739203
   CrossSectionError_fb: 0.0114494
   NumberOfEvents: 5400
-- GeneratorID: 402216
-  Process: qqh_e3e3
-  ProductionIDs:
-  - 15649
-  CrossSection_fb: 8.98739203
-  CrossSectionError_fb: 0.0114494
-  NumberOfEvents: 5400
-- GeneratorID: 402217
-  Process: qqh_e2e2
-  ProductionIDs:
-  - 15649
-  CrossSection_fb: 8.98739203
-  CrossSectionError_fb: 0.0114494
-  NumberOfEvents: 5400
