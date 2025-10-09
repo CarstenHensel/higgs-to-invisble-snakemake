@@ -5,20 +5,20 @@ generate_grid_jobs.py
 Generate ILCDIRAC grid submission scripts and option files
 from a master LFN list and a YAML cross-section file (new format).
 
-- Creates one directory per ProdID
-- Writes higgsToInvisible_<ProdID>.py (options file)
-- Writes submit_grid_<ProdID>.py (job submission script)
+- Creates one directory per (GenID, ProdID) combination
+- Writes higgsToInvisible_<GenID>_<ProdID>.py (options file)
+- Writes submit_grid_<GenID>_<ProdID>.py (job submission script)
 - Logs actions to a timestamped log file
 - Supports dry run (--dry-run)
-
-Author: Carsten Hensel (adapted for new YAML format)
 """
+
 import os
 import argparse
 import yaml
 from datetime import datetime
 from pathlib import Path
 import textwrap
+import re
 
 # --- hardcoded global settings
 TARGET_LUMI = 1000.0
@@ -39,19 +39,36 @@ def load_inputs(lfn_file, xsec_file):
         xsecs = yaml.safe_load(f)
     return lfns, xsecs
 
-def group_lfns_by_prodid(lfns):
+def extract_genid_from_lfn(lfn):
+    """
+    Extract Generator ID (6 digits after '.I') from LFN.
+    """
+    match = re.search(r'\.I(\d{6})\.', lfn)
+    return int(match.group(1)) if match else None
+
+def extract_prodid_from_lfn(lfn):
+    """
+    Extract Production ID (number after 'd_dst_') from LFN.
+    """
+    match = re.search(r'd_dst_(\d+)_', lfn)
+    return int(match.group(1)) if match else None
+
+def group_lfns_by_genid_prodid(lfns):
+    """
+    Groups LFNs by (genid, prodid) combination.
+    """
     grouped = {}
     for lfn in lfns:
-        parts = lfn.split("/")
-        for p in parts:
-            if p.startswith("000") and p[3:].isdigit():
-                prodid = int(p[3:])
-                lfn_entry = lfn if lfn.startswith("LFN:") else "LFN:" + lfn.lstrip("/")
-                grouped.setdefault(prodid, []).append(lfn_entry)
-                break
+        genid = extract_genid_from_lfn(lfn)
+        prodid = extract_prodid_from_lfn(lfn)
+        if genid is None or prodid is None:
+            continue
+        key = (genid, prodid)
+        lfn_entry = lfn if lfn.startswith("LFN:") else "LFN:" + lfn.lstrip("/")
+        grouped.setdefault(key, []).append(lfn_entry)
     return grouped
 
-def write_option_file(path: Path, prodid: int, proc: str, xsec: float, nevts: int):
+def write_option_file(path: Path, genid: int, prodid: int, proc: str, xsec: float, nevts: int):
     content = f'''\
 from Gaudi.Configuration import *
 import os
@@ -90,8 +107,9 @@ myalg.cross_section = {xsec}
 myalg.n_events_generated = {nevts}
 myalg.processName = '{proc}'
 myalg.processID = {prodid}
+myalg.generatorID = {genid}
 myalg.targetLumi = {TARGET_LUMI}
-myalg.root_output_file = getattr(reco_args, "myOutputFile", "myalg_higgs_to_invisible_{prodid}.root")
+myalg.root_output_file = getattr(reco_args, "myOutputFile", "myalg_higgs_to_invisible_{genid}_{prodid}.root")
 myalg.RecoParticleColl = 'PandoraPFOs'
 myalg.IsolatedLeptonsColl = 'IsolatedLeptons'
 myalg.EventHeaderColl = 'EventHeader'
@@ -160,15 +178,10 @@ def _make_output_filename_from_lfn(lfn: str, genid: int, prodid: int, idx: int):
     raw = lfn.split("LFN:")[-1]
     basename = raw.split("/")[-1]
     stem = basename.replace(".slcio", "")
-    parts = stem.split(".")
-    if len(parts) >= 4:
-        sample_tag = "_".join(parts[-3:])
-    else:
-        sample_tag = stem
-    return f"myalg_higgs_to_invisible_{genid}_{prodid}_{sample_tag}.root"
+    return f"myalg_higgs_to_invisible_{genid}_{prodid}_{idx}_{stem}.root"
 
 def write_submit_file(path: Path, genid: int, prodid: int, input_files):
-    steering_name = f"higgsToInvisible_{prodid}.py"
+    steering_name = f"higgsToInvisible_{genid}_{prodid}.py"
     output_files = [_make_output_filename_from_lfn(inf, genid, prodid, i+1) for i, inf in enumerate(input_files)]
     content = f'''\
 from DIRAC.Core.Base import Script
@@ -198,7 +211,7 @@ gaudi.setSteeringFile("{steering_name}")
 job.append(gaudi)
 job.setSplitParameter('myOutputFile', outputFiles)
 job.setSplitOutputData([[out] for out in outputFiles],
-                       "htoinv/ROOT-{genid}",
+                       "htoinv/ROOT-{genid}-{prodid}",
                        "CERN-DST-EOS")
 
 job.setInputSandbox([
@@ -218,12 +231,12 @@ else:
     with open(path, "w") as f:
         f.write(textwrap.dedent(content))
 
-def write_master_submit(prodid_list):
+def write_master_submit(job_keys):
     script_path = Path("submit_all.sh")
     lines = ["#!/bin/bash", "# Auto-generated master submission script", "set -euo pipefail", ""]
-    for pid in prodid_list:
-        lines.append(f"echo 'Submitting ProdID {pid} ...'")
-        lines.append(f"python3 {pid}/submit_grid_{pid}.py\n")
+    for genid, prodid in job_keys:
+        lines.append(f"echo 'Submitting GenID {genid}, ProdID {prodid} ...'")
+        lines.append(f"python3 {genid}_{prodid}/submit_grid_{genid}_{prodid}.py\n")
     with open(script_path, "w") as f:
         f.write("\n".join(lines))
     os.chmod(script_path, 0o755)
@@ -232,11 +245,12 @@ def write_master_submit(prodid_list):
 def main():
     args = parse_args()
     lfns, xsecs = load_inputs(args.lfn_file, args.xsec_file)
-    grouped_lfns = group_lfns_by_prodid(lfns)
+    grouped_lfns = group_lfns_by_genid_prodid(lfns)
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     log_file = f"job_generation_{timestamp}.log"
     log_lines = []
+    job_keys = []
 
     for entry in xsecs:
         genid = entry.get("GeneratorID", -1)
@@ -246,30 +260,31 @@ def main():
         prod_ids = entry.get("ProductionIDs", [])
 
         for prodid in prod_ids:
-            if prodid not in grouped_lfns:
-                msg = f"[{timestamp}] ProdID {prodid} not found in LFN list - skipping"
+            key = (genid, prodid)
+            if key not in grouped_lfns:
+                msg = f"[{timestamp}] GenID {genid}, ProdID {prodid} not found in LFN list - skipping"
                 print(msg)
                 log_lines.append(msg)
                 continue
 
-            outdir = Path(str(prodid))
-            opt_path = outdir / f"higgsToInvisible_{prodid}.py"
-            sub_path = outdir / f"submit_grid_{prodid}.py"
+            outdir = Path(f"{genid}_{prodid}")
+            opt_path = outdir / f"higgsToInvisible_{genid}_{prodid}.py"
+            sub_path = outdir / f"submit_grid_{genid}_{prodid}.py"
 
-            msg = f"[{timestamp}] ProdID {prodid} ({proc}) → {len(grouped_lfns[prodid])} files"
+            msg = f"[{timestamp}] GenID {genid}, ProdID {prodid} ({proc}) → {len(grouped_lfns[key])} files"
             print(msg)
             log_lines.append(msg)
 
             if not args.dry_run:
                 outdir.mkdir(parents=True, exist_ok=True)
-                write_option_file(opt_path, prodid, proc, xsec, nevts)
-                write_submit_file(sub_path, genid, prodid, grouped_lfns[prodid])
+                write_option_file(opt_path, genid, prodid, proc, xsec, nevts)
+                write_submit_file(sub_path, genid, prodid, grouped_lfns[key])
+                job_keys.append(key)
 
-    if not args.dry_run:
+    if not args.dry_run and job_keys:
         with open(log_file, "w") as f:
             f.write("\n".join(log_lines))
-        prodids = [pid for entry in xsecs for pid in entry.get("ProductionIDs", []) if pid in grouped_lfns]
-        master_script = write_master_submit(prodids)
+        master_script = write_master_submit(job_keys)
         print(f"Master submission script written: {master_script}")
 
     print("Done. Log lines:")
