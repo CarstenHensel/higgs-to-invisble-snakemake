@@ -198,7 +198,7 @@ gaudi.setSteeringFile("{steering_name}")
 job.append(gaudi)
 job.setSplitParameter('myOutputFile', outputFiles)
 job.setSplitOutputData([[out] for out in outputFiles],
-                       "htoinv/ROOT-{genid}/",
+                       "htoinv/ROOT-{genid}",
                        "CERN-DST-EOS")
 
 job.setInputSandbox([
