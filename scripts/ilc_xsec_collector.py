@@ -2,12 +2,8 @@
 """
 ilc_xsec_collector.py
 
-Script to extract unique production IDs from a list of ILCDirac LFNs,
-query their cross sections and number of events via dirac-ilc-get-info, 
-and store results in a YAML file.
-
-Usage:
-    ./ilc_xsec_collector.py -i lfns.txt -o production_info.yaml
+Modified to combine multiple production IDs of the same process
+into a single YAML entry with summed number of events.
 """
 
 import re
@@ -15,6 +11,7 @@ import subprocess
 import yaml
 import logging
 import argparse
+from collections import defaultdict
 
 # -------------------------------
 # Argument parsing
@@ -51,12 +48,18 @@ def main():
         format='%(levelname)s: %(message)s'
     )
 
-    # Regex to extract process and production ID from filenames
+    # Regex to extract generator ID, process name, and production ID
     prod_pattern = re.compile(
-        r'\.I\d{6}\.P([^\.]+)\..*d_dst_(\d+)_\d+\.slcio'
+        r'\.I(\d{6})\.P([^\.]+)\..*d_dst_(\d+)_\d+\.slcio'
     )
 
-    prod_dict = {}  # key: prod_id, value: process_name
+    # Group info by (generatorID, process)
+    process_dict = defaultdict(lambda: {
+        "ProductionIDs": [],
+        "CrossSection_fb": None,
+        "CrossSectionError_fb": None,
+        "NumberOfEvents": 0
+    })
 
     # Step 1: Parse LFNs
     with open(args.input, 'r') as f:
@@ -66,67 +69,81 @@ def main():
                 continue
             match = prod_pattern.search(line)
             if match:
-                process_name, prod_id = match.groups()
-                prod_dict[prod_id] = process_name
-                logging.debug(f"Found ProdID={prod_id}, Process={process_name}")
+                gen_id, process_name, prod_id = match.groups()
+                key = (gen_id, process_name)
+                if prod_id not in process_dict[key]["ProductionIDs"]:
+                    process_dict[key]["ProductionIDs"].append(prod_id)
+                logging.debug(f"Found ProdID={prod_id}, Process={process_name}, GenID={gen_id}")
             else:
                 logging.warning(f"Could not parse LFN: {line}")
 
-    logging.info(f"Found {len(prod_dict)} unique production IDs.")
+    logging.info(f"Found {len(process_dict)} unique process entries (by GenID + Process).")
 
-    results = []
+    # Step 2 & 3: Query dirac-ilc-get-info per production
+    for (gen_id, process_name), info in process_dict.items():
+        for prod_id in info["ProductionIDs"]:
+            logging.info(f"Querying production {prod_id} ({process_name})")
+            try:
+                cmd = ["dirac-ilc-get-info", "-p", prod_id]
+                result = subprocess.run(
+                    cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                    text=True, check=True
+                )
+                output = result.stdout
+            except subprocess.CalledProcessError as e:
+                logging.error(f"Error querying ProdID {prod_id}: {e.stderr.strip()}")
+                continue
 
-    # Step 2 & 3: Query dirac-ilc-get-info
-    for prod_id, process_name in prod_dict.items():
-        logging.info(f"Querying production {prod_id} ({process_name})")
-        try:
-            cmd = ["dirac-ilc-get-info", "-p", prod_id]
-            result = subprocess.run(
-                cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                text=True, check=True
+            # Extract CrossSection
+            cross_section_match = re.search(
+                r'CrossSection\s+:\s+([\dEe\+\-\.]+)\s+fb\+/-([\dEe\+\-\.]+)fb', output
             )
-            output = result.stdout
-        except subprocess.CalledProcessError as e:
-            logging.error(f"Error querying ProdID {prod_id}: {e.stderr.strip()}")
-            continue
+            # Extract NumberOfEvents
+            events_match = re.search(
+                r'^\s*NumberOfEvents\s*:\s*(\d+)', output, re.MULTILINE
+            )
 
-        # Step 4: Extract CrossSection
-        cross_section_match = re.search(
-            r'CrossSection\s+:\s+([\dEe\+\-\.]+)\s+fb\+/-([\dEe\+\-\.]+)fb', output
-        )
+            if cross_section_match:
+                xsec_value, xsec_error = cross_section_match.groups()
+                xsec_value = float(xsec_value)
+                xsec_error = float(xsec_error)
 
-        # Extract NumberOfEvents (allow optional spaces at the start)
-        events_match = re.search(
-            r'^\s*NumberOfEvents\s*:\s*(\d+)', output, re.MULTILINE
-        )         
+                # Store cross-section if not set yet, else verify consistency
+                if info["CrossSection_fb"] is None:
+                    info["CrossSection_fb"] = xsec_value
+                    info["CrossSectionError_fb"] = xsec_error
+                else:
+                    if abs(info["CrossSection_fb"] - xsec_value) > 1e-6:
+                        logging.warning(
+                            f"CrossSection mismatch for process {process_name}, ProdID {prod_id}"
+                        )
 
-        if cross_section_match:
-            xsec_value, xsec_error = cross_section_match.groups()
-            entry = {
-                "ProdID": int(prod_id),
-                "Process": process_name,
-                "CrossSection_fb": float(xsec_value),
-                "CrossSectionError_fb": float(xsec_error)
-            }
-            if events_match:
-                entry["NumberOfEvents"] = int(events_match.group(1))
+                if events_match:
+                    info["NumberOfEvents"] += int(events_match.group(1))
+                else:
+                    logging.warning(f"Could not extract NumberOfEvents for ProdID {prod_id}")
+
             else:
-                logging.warning(f"Could not extract NumberOfEvents for ProdID {prod_id}")
-                entry["NumberOfEvents"] = None
+                logging.warning(f"Could not extract CrossSection for ProdID {prod_id}")
 
-            results.append(entry)
-            logging.info(
-                f"ProdID {prod_id}: CrossSection = {xsec_value} ± {xsec_error} fb, "
-                f"NumberOfEvents = {entry['NumberOfEvents']}"
-            )
-        else:
-            logging.warning(f"Could not extract CrossSection for ProdID {prod_id}")
+    # Prepare output list
+    results = []
+    for (gen_id, process_name), info in process_dict.items():
+        entry = {
+            "GeneratorID": int(gen_id),
+            "Process": process_name,
+            "ProductionIDs": sorted([int(pid) for pid in info["ProductionIDs"]]),
+            "CrossSection_fb": info["CrossSection_fb"],
+            "CrossSectionError_fb": info["CrossSectionError_fb"],
+            "NumberOfEvents": info["NumberOfEvents"]
+        }
+        results.append(entry)
 
     # Write results to YAML
     with open(args.output, 'w') as f:
         yaml.dump(results, f, sort_keys=False)
 
-    logging.info(f"Saved production info for {len(results)} productions to {args.output}")
+    logging.info(f"Saved consolidated production info for {len(results)} processes to {args.output}")
 
 # -------------------------------
 # Entry point
