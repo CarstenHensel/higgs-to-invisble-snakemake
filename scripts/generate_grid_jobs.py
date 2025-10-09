@@ -64,7 +64,7 @@ def group_lfns_by_genid_prodid(lfns):
         if genid is None or prodid is None:
             continue
         key = (genid, prodid)
-        lfn_entry = lfn if lfn.startswith("LFN:") else "LFN:" + lfn.lstrip("/")
+        lfn_entry = lfn if lfn.startswith("LFN:") else "LFN:/" + lfn.lstrip("/")
         grouped.setdefault(key, []).append(lfn_entry)
     return grouped
 
