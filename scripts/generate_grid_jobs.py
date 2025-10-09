@@ -107,7 +107,6 @@ myalg.cross_section = {xsec}
 myalg.n_events_generated = {nevts}
 myalg.processName = '{proc}'
 myalg.processID = {prodid}
-myalg.generatorID = {genid}
 myalg.targetLumi = {TARGET_LUMI}
 myalg.root_output_file = getattr(reco_args, "myOutputFile", "myalg_higgs_to_invisible_{genid}_{prodid}.root")
 myalg.RecoParticleColl = 'PandoraPFOs'
