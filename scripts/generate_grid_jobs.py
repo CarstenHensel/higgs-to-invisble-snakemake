@@ -156,7 +156,7 @@ ApplicationMgr( TopAlg = alg_list,
     with open(path, "w") as f:
         f.write(textwrap.dedent(content))
 
-def _make_output_filename_from_lfn(lfn: str, prodid: int, idx: int):
+def _make_output_filename_from_lfn(lfn: str, genid: int, prodid: int, idx: int):
     raw = lfn.split("LFN:")[-1]
     basename = raw.split("/")[-1]
     stem = basename.replace(".slcio", "")
@@ -165,11 +165,11 @@ def _make_output_filename_from_lfn(lfn: str, prodid: int, idx: int):
         sample_tag = "_".join(parts[-3:])
     else:
         sample_tag = stem
-    return f"myalg_higgs_to_invisible_{prodid}_{sample_tag}.root"
+    return f"myalg_higgs_to_invisible_{genid}_{prodid}_{sample_tag}.root"
 
-def write_submit_file(path: Path, prodid: int, input_files):
+def write_submit_file(path: Path, genid: int, prodid: int, input_files):
     steering_name = f"higgsToInvisible_{prodid}.py"
-    output_files = [_make_output_filename_from_lfn(inf, prodid, i+1) for i, inf in enumerate(input_files)]
+    output_files = [_make_output_filename_from_lfn(inf, genid, prodid, i+1) for i, inf in enumerate(input_files)]
     content = f'''\
 from DIRAC.Core.Base import Script
 Script.parseCommandLine()
@@ -191,14 +191,14 @@ gaudi.setExecutableName("k4run")
 gaudi.setVersion("{GAUDI_VERSION}")
 gaudi.setInputFileFlag("--inputFiles")
 gaudi.setOutputFileFlag("--myOutputFile")
-gaudi.setOutputFile(outputFiles[0] if outputFiles else "myalg_higgs_to_invisible_{prodid}.root")
+gaudi.setOutputFile(outputFiles[0] if outputFiles else "myalg_higgs_to_invisible_{genid}_{prodid}.root")
 gaudi.setNumberOfEvents(-1)
 gaudi.setSteeringFile("{steering_name}")
 
 job.append(gaudi)
 job.setSplitParameter('myOutputFile', outputFiles)
 job.setSplitOutputData([[out] for out in outputFiles],
-                       "htoinv/ROOT-{prodid}",
+                       "htoinv/ROOT-{genid}/",
                        "CERN-DST-EOS")
 
 job.setInputSandbox([
@@ -239,6 +239,7 @@ def main():
     log_lines = []
 
     for entry in xsecs:
+        genid = entry.get("GeneratorID", -1)
         proc = entry.get("Process", "unknown_proc")
         xsec = entry.get("CrossSection_fb", 0.0)
         nevts = entry.get("NumberOfEvents", 0)
@@ -262,7 +263,7 @@ def main():
             if not args.dry_run:
                 outdir.mkdir(parents=True, exist_ok=True)
                 write_option_file(opt_path, prodid, proc, xsec, nevts)
-                write_submit_file(sub_path, prodid, grouped_lfns[prodid])
+                write_submit_file(sub_path, genid, prodid, grouped_lfns[prodid])
 
     if not args.dry_run:
         with open(log_file, "w") as f:
