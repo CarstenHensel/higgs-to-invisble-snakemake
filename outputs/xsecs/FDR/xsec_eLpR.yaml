@@ -1,0 +1,241 @@
+- GeneratorID: 500010
+  Process: 2f_z_h
+  ProductionIDs:
+  - 15509
+  - 15664
+  CrossSection_fb: 127965.53
+  CrossSectionError_fb: 29.6
+  NumberOfEvents: 30400
+- GeneratorID: 500002
+  Process: 2f_z_eehiq
+  ProductionIDs:
+  - 15783
+  - 15784
+  - 15850
+  - 15858
+  - 15861
+  - 15867
+  - 15877
+  - 15879
+  - 15884
+  - 15886
+  - 15888
+  - 15890
+  - 15892
+  CrossSection_fb: 193112.24
+  CrossSectionError_fb: 113.0
+  NumberOfEvents: 560400
+- GeneratorID: 500066
+  Process: 4f_ww_h
+  ProductionIDs:
+  - 15663
+  CrossSection_fb: 14866.42
+  CrossSectionError_fb: 9.33
+  NumberOfEvents: 800
+- GeneratorID: 500094
+  Process: 4f_ww_l
+  ProductionIDs:
+  - 15635
+  - 15636
+  CrossSection_fb: 1563.418
+  CrossSectionError_fb: 1.17
+  NumberOfEvents: 94000
+- GeneratorID: 500082
+  Process: 4f_ww_sl
+  ProductionIDs:
+  - 15661
+  CrossSection_fb: 18779.145
+  CrossSectionError_fb: 9.82
+  NumberOfEvents: 16800
+- GeneratorID: 500070
+  Process: 4f_zzorww_h
+  ProductionIDs:
+  - 15662
+  CrossSection_fb: 12389.292
+  CrossSectionError_fb: 7.96
+  NumberOfEvents: 10200
+- GeneratorID: 500062
+  Process: 4f_zz_h
+  ProductionIDs:
+  - 15660
+  CrossSection_fb: 1405.06
+  CrossSectionError_fb: 0.839
+  NumberOfEvents: 9400
+- GeneratorID: 500074
+  Process: 4f_zz_sl
+  ProductionIDs:
+  - 15655
+  CrossSection_fb: 838.07949
+  CrossSectionError_fb: 0.443
+  NumberOfEvents: 14800
+- GeneratorID: 500078
+  Process: 4f_zznu_sl
+  ProductionIDs:
+  - 15656
+  CrossSection_fb: 261.5672
+  CrossSectionError_fb: 0.16
+  NumberOfEvents: 12800
+- GeneratorID: 500106
+  Process: 4f_sw_sl
+  ProductionIDs:
+  - 15654
+  CrossSection_fb: 10264.016
+  CrossSectionError_fb: 5.55
+  NumberOfEvents: 16800
+- GeneratorID: 500102
+  Process: 4f_sze_sl
+  ProductionIDs:
+  - 15651
+  CrossSection_fb: 1423.3098
+  CrossSectionError_fb: 1.48
+  NumberOfEvents: 18000
+- GeneratorID: 500110
+  Process: 4f_sznu_sl
+  ProductionIDs:
+  - 15650
+  CrossSection_fb: 131.21958
+  CrossSectionError_fb: 0.0849
+  NumberOfEvents: 10800
+- GeneratorID: 402301
+  Process: 6f_llxyyx
+  ProductionIDs:
+  - 15641
+  - 15642
+  CrossSection_fb: 0.016396728
+  CrossSectionError_fb: 8.51e-05
+  NumberOfEvents: 11200
+- GeneratorID: 402303
+  Process: 6f_eexyyx
+  ProductionIDs:
+  - 15641
+  - 15642
+  CrossSection_fb: 0.016396728
+  CrossSectionError_fb: 8.51e-05
+  NumberOfEvents: 11200
+- GeneratorID: 402305
+  Process: 6f_vvxyyx
+  ProductionIDs:
+  - 15641
+  - 15642
+  CrossSection_fb: 0.016396728
+  CrossSectionError_fb: 8.51e-05
+  NumberOfEvents: 11200
+- GeneratorID: 402307
+  Process: 6f_llxxxx
+  ProductionIDs:
+  - 15641
+  - 15642
+  CrossSection_fb: 0.016396728
+  CrossSectionError_fb: 8.51e-05
+  NumberOfEvents: 11200
+- GeneratorID: 402309
+  Process: 6f_eexxxx
+  ProductionIDs:
+  - 15641
+  - 15642
+  CrossSection_fb: 0.016396728
+  CrossSectionError_fb: 8.51e-05
+  NumberOfEvents: 11200
+- GeneratorID: 402311
+  Process: 6f_vvxxxx
+  ProductionIDs:
+  - 15641
+  - 15642
+  CrossSection_fb: 0.016396728
+  CrossSectionError_fb: 8.51e-05
+  NumberOfEvents: 11200
+- GeneratorID: 402313
+  Process: 6f_llyyyy
+  ProductionIDs:
+  - 15641
+  - 15642
+  CrossSection_fb: 0.016396728
+  CrossSectionError_fb: 8.51e-05
+  NumberOfEvents: 11200
+- GeneratorID: 402315
+  Process: 6f_eeyyyy
+  ProductionIDs:
+  - 15641
+  - 15642
+  CrossSection_fb: 0.016396728
+  CrossSectionError_fb: 8.51e-05
+  NumberOfEvents: 11200
+- GeneratorID: 402317
+  Process: 6f_vvyyyy
+  ProductionIDs:
+  - 15641
+  - 15642
+  CrossSection_fb: 0.016396728
+  CrossSectionError_fb: 8.51e-05
+  NumberOfEvents: 11200
+- GeneratorID: 402011
+  Process: qqh
+  ProductionIDs:
+  - 15420
+  - 15421
+  CrossSection_fb: 343.03023
+  CrossSectionError_fb: 0.437
+  NumberOfEvents: 17200
+- GeneratorID: 402209
+  Process: qqh_bb
+  ProductionIDs:
+  - 15648
+  CrossSection_fb: 199.643594
+  CrossSectionError_fb: 0.254334
+  NumberOfEvents: 8400
+- GeneratorID: 402210
+  Process: qqh_cc
+  ProductionIDs:
+  - 15649
+  CrossSection_fb: 8.98739203
+  CrossSectionError_fb: 0.0114494
+  NumberOfEvents: 5400
+- GeneratorID: 402211
+  Process: qqh_gg
+  ProductionIDs:
+  - 15649
+  CrossSection_fb: 8.98739203
+  CrossSectionError_fb: 0.0114494
+  NumberOfEvents: 5400
+- GeneratorID: 402212
+  Process: qqh_ww
+  ProductionIDs:
+  - 15649
+  CrossSection_fb: 8.98739203
+  CrossSectionError_fb: 0.0114494
+  NumberOfEvents: 5400
+- GeneratorID: 402213
+  Process: qqh_zz
+  ProductionIDs:
+  - 15649
+  CrossSection_fb: 8.98739203
+  CrossSectionError_fb: 0.0114494
+  NumberOfEvents: 5400
+- GeneratorID: 402214
+  Process: qqh_aa
+  ProductionIDs:
+  - 15649
+  CrossSection_fb: 8.98739203
+  CrossSectionError_fb: 0.0114494
+  NumberOfEvents: 5400
+- GeneratorID: 402215
+  Process: qqh_az
+  ProductionIDs:
+  - 15649
+  CrossSection_fb: 8.98739203
+  CrossSectionError_fb: 0.0114494
+  NumberOfEvents: 5400
+- GeneratorID: 402216
+  Process: qqh_e3e3
+  ProductionIDs:
+  - 15649
+  CrossSection_fb: 8.98739203
+  CrossSectionError_fb: 0.0114494
+  NumberOfEvents: 5400
+- GeneratorID: 402217
+  Process: qqh_e2e2
+  ProductionIDs:
+  - 15649
+  CrossSection_fb: 8.98739203
+  CrossSectionError_fb: 0.0114494
+  NumberOfEvents: 5400
