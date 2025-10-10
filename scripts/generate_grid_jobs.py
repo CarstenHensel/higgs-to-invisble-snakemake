@@ -194,22 +194,27 @@ outputFiles = {output_files}
 
 job = UserJob()
 job.setName("htoinv_DST_%n")
-job.setSplitInputData(inputFiles)
+
+# splitting the input files into smaller chunks
+chunk_size = 5  # e.g. 5 input files per job
+input_groups = [inputFiles[i:i+chunk_size] for i in range(0, len(inputFiles), chunk_size)]
+job.setSplitInputData(input_groups)
 
 gaudi = GaudiApp()
 gaudi.setExecutableName("k4run")
 gaudi.setVersion("{GAUDI_VERSION}")
 gaudi.setInputFileFlag("--inputFiles")
 gaudi.setOutputFileFlag("--myOutputFile")
-gaudi.setOutputFile(outputFiles[0] if outputFiles else "myalg_higgs_to_invisible_{genid}_{prodid}.root")
+output_files = [f"myalg_higgs_to_invisible_{genid}_{prodid}_{i+1}.root" for i in range(len(input_groups))]
+job.setSplitParameter('myOutputFile', output_files)
+job.setSplitOutputData([[out] for out in output_files],
+                       f"htoinv/ROOT-{genid}-{prodid}",
+                       "CERN-DST-EOS")
+gaudi.setOutputFile("myalg_higgs_to_invisible_{genid}_{prodid}.root")
 gaudi.setNumberOfEvents(-1)
 gaudi.setSteeringFile("{steering_name}")
 
 job.append(gaudi)
-job.setSplitParameter('myOutputFile', outputFiles)
-job.setSplitOutputData([[out] for out in outputFiles],
-                       "htoinv/ROOT-{genid}-{prodid}",
-                       "CERN-DST-EOS")
 
 job.setInputSandbox([
     "{SANDBOX_PATH}",
