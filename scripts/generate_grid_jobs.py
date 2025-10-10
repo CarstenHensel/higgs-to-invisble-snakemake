@@ -87,7 +87,6 @@ parser_group.add_argument("--inputFiles", action="extend", nargs="+", metavar=("
 parser_group.add_argument("--myOutputFile", type=str, help="Output file name")
 parser_group.add_argument("--cms", action="store", help="Choose a Centre-of-Mass energy", default=240, choices=(91, 160, 240, 365), type=int)
 
-parser_group.add_argument("--myOutputFile", type=str, help="Output file name")
 
 reco_args = parser.parse_known_args()[0]
 
@@ -170,7 +169,7 @@ l2eConv.OutputLevel = INFO
 MyIsolatedLeptonTaggingProcessor = MarlinProcessorWrapper("MyIsolatedLeptonTaggingProcessor")
 MyIsolatedLeptonTaggingProcessor.OutputLevel = INFO
 MyIsolatedLeptonTaggingProcessor.ProcessorType = "IsolatedLeptonTaggingProcessor"
-MyIsolatedLeptonTaggingProcessor.Parameters = {
+MyIsolatedLeptonTaggingProcessor.Parameters = {{
                                                "CosConeLarge": ["0.95"],
                                                "CosConeSmall": ["0.98"],
                                                "CutOnTheISOElectronMVA": ["2.0"],
@@ -194,29 +193,32 @@ MyIsolatedLeptonTaggingProcessor.Parameters = {
                                                "OutputIsoLeptonsCollection": ["IsolatedLeptons"],
                                                "OutputPFOsWithoutIsoLepCollection": ["PandoraPFOsWithoutIsoLep"],
                                                "UseYokeForMuonID": ["false"]
-                                               }
+                                               }}
 
 edm4hep2LcioConv = EDM4hep2LcioTool("EDM4hep2Lcio")
 lcio2edm4hepConv = Lcio2EDM4hepTool("Lcio2EDM4hep")
 edm4hep2LcioConv.convertAll = False
-edm4hep2LcioConv.collNameMapping = {
+edm4hep2LcioConv.collNameMapping = {{
         'PrimaryVertex':'PrimaryVertex',
         'PandoraPFOs':'PandoraPFOs',
         "PandoraClusters": "PandoraClusters",
-        "MarlinTrkTracks": "MarlinTrkTracks"
-      }
+        "MarlinTrkTracks": "MarlinTrkTracks",
+        "EventHeader": "EventHeader"
+      }}
 
 
 lcio2edm4hepConv.convertAll = False
-lcio2edm4hepConv.collNameMapping = {
+lcio2edm4hepConv.collNameMapping = {{
      'PandoraPFOs': 'PandoraPFOs',
      'IsolatedLeptons': 'IsolatedLeptons',
      'PandoraPFOsWithoutIsoLep': 'PandoraPFOsWithoutIsoLep',
      "PandoraClusters": "PandoraClusters",
      "MarlinTrkTracks": "MarlinTrkTracks",
+     "EventHeader": "EventHeader",
+     "MCParticlesSkimmed": "MCParticlesSkimmed",
      "MyJets": "MyJets",
      "PFOsfromJets": "PFOsfromJets"
-     }
+     }}
 
 
 
@@ -259,7 +261,7 @@ def _make_output_filename_from_lfn(lfn: str, genid: int, prodid: int, idx: int):
 
 def write_submit_file(path: Path, genid: int, prodid: int, input_files):
     steering_name = f"higgsToInvisible_{genid}_{prodid}.py"
-    outputFiles = [_make_output_filename_from_lfn(inf, genid, prodid, i+1) for i, inf in enumerate(input_files)]
+    output_files = [_make_output_filename_from_lfn(inf, genid, prodid, i+1) for i, inf in enumerate(input_files)]
     content = f'''\
 from DIRAC.Core.Base import Script
 Script.parseCommandLine()
@@ -270,65 +272,56 @@ from ILCDIRAC.Interfaces.API.NewInterface.Applications import GaudiApp
 
 dIlc = DiracILC()
 inputFiles = {input_files}
-outputFiles = {outputFiles}
-
-# Create matching output file names
-outputFiles = [
-    f"myalg_higgs_to_invisible_{genid}_{prodid}_{{i+1}}.root"
-    for i in range(len(inputFiles))
-]
-
-# --- Split input files into groups of 5
-chunk_size = 5
-input_groups = [
-    inputFiles[i:i+chunk_size] for i in range(0, len(inputFiles), chunk_size)
-]
-
-# --- Create one output file name per job (flat list, not nested)
-split_output = [
-    f"myalg_higgs_to_invisible_{genid}_{prodid}_chunk{{i+1}}.root"
-    for i in range(len(input_groups))
-]
+outputFiles = {output_files}
 
 job = UserJob()
 job.setName("htoinv_DST_%n")
 
-# --- Both have same length, so no mismatch
-#job.setSplitParameter("InputData", input_groups)
-job.setSplitParameter("outputFile", split_output)
 
+# 1) Split input
+#job.setInputData(inputFiles)
+job.setSplitInputData(inputFiles, numberOfFilesPerJob=1)
 
-gaudi = GaudiApp()
-gaudi.setExecutableName("k4run")
-gaudi.setVersion("{GAUDI_VERSION}")
-gaudi.setInputFileFlag("--inputFiles")
-gaudi.setOutputFileFlag("--myOutputFile")
+# 2) Output files
+#job.setOutputData(
+#    [f"myalg_higgs_to_invisible_402210_15649_%n.root" for _ in inputFiles],
+#    OutputPath="htoinv/ROOT-{genid}-{prodid}",
+#    OutputSE="CERN-DST-EOS"
+#)
 
-# --- Use the split output parameter
-job.setSplitParameter("outputFile", split_output)
-gaudi.setOutputFile("%(outputFile)s")
-
-# --- Output location on grid
-job.setSplitOutputData(
-    split_output,
+job.setOutputData(
+    ["myalg_higgs_to_invisible_{genid}_{prodid}.root"],
     OutputPath="htoinv/ROOT-{genid}-{prodid}",
     OutputSE="CERN-DST-EOS"
 )
 
+
+# 3) Gaudi
+gaudi = GaudiApp()
+gaudi.setExecutableName("k4run")
+gaudi.setVersion("key4hep_250529")
+gaudi.setInputFileFlag("--inputFiles")
+gaudi.setInputFile("%(InputData)s")
+#gaudi.setOutputFile("%(OutputData)s")
+gaudi.setOutputFile("myalg_higgs_to_invisible_{genid}_{prodid}_%n.root")
+gaudi.setOutputFileFlag("--myOutputFile")
 gaudi.setNumberOfEvents(-1)
 gaudi.setSteeringFile("{steering_name}")
 
 
+# 4) Append after input/output are set
 job.append(gaudi)
 
-job.setInputSandbox([
-    "{SANDBOX_PATH}",
-    "{steering_name}"
-])
+# 5) Sandboxes
 job.setOutputSandbox(["*.log", "*.out", "*.err"])
+
+job.setInputSandbox(["{SANDBOX_PATH}", "{steering_name}"])
+
 job.dontPromptMe()
-#res = job.submit(dIlc, mode="wms")
-res = job.submit(dIlc, mode="local")
+
+
+res = job.submit(dIlc, mode="wms")
+#res = job.submit(dIlc, mode="local")
 
 if res.get("OK"):
     print("Successfully submitted job(s):", res["Value"])
