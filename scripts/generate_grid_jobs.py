@@ -280,15 +280,10 @@ job.setName("htoinv_DST_%n")
 
 # 1) Split input
 #job.setInputData(inputFiles)
-job.setSplitInputData(inputFiles, numberOfFilesPerJob=1)
+chunk_size = min(5, len(inputFiles))
+job.setSplitInputData(inputFiles, numberOfFilesPerJob=chunk_size)
 
 # 2) Output files
-#job.setOutputData(
-#    [f"myalg_higgs_to_invisible_402210_15649_%n.root" for _ in inputFiles],
-#    OutputPath="htoinv/ROOT-{genid}-{prodid}",
-#    OutputSE="CERN-DST-EOS"
-#)
-
 job.setOutputData(
     ["myalg_higgs_to_invisible_{genid}_{prodid}.root"],
     OutputPath="htoinv/ROOT-{genid}-{prodid}",
