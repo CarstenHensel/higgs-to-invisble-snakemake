@@ -87,8 +87,11 @@ parser_group.add_argument("--inputFiles", action="extend", nargs="+", metavar=("
 parser_group.add_argument("--myOutputFile", type=str, help="Output file name")
 parser_group.add_argument("--cms", action="store", help="Choose a Centre-of-Mass energy", default=240, choices=(91, 160, 240, 365), type=int)
 
+parser_group.add_argument("--myOutputFile", type=str, help="Output file name")
+
 reco_args = parser.parse_known_args()[0]
 
+# setting up the input
 alg_list = []
 evt_svc = EventDataSvc("EventDataSvc")
 evt_svc.OutputLevel = INFO
@@ -96,11 +99,10 @@ svc_list = [evt_svc]
 io_svc = IOSvc()
 
 io_handler = IOHandlerHelper(alg_list, io_svc)
-if getattr(reco_args, "inputFiles", None):
-    print("input file ---------->: ", reco_args.inputFiles)
-    io_handler.add_reader(reco_args.inputFiles)
+io_handler.add_reader(reco_args.inputFiles)
 
 
+# setting up the Higgs to Invisible algorithm
 from Configurables import HtoInvAlg
 myalg = HtoInvAlg()
 myalg.cross_section = {xsec}
@@ -108,8 +110,7 @@ myalg.n_events_generated = {nevts}
 myalg.processName = '{proc}'
 myalg.processID = {prodid}
 myalg.targetLumi = {TARGET_LUMI}
-myalg.root_output_file = getattr(reco_args, "myOutputFile", "myalg_higgs_to_invisible_{genid}_{prodid}.root")
-print("output file --------------->: ", getattr(reco_args, "myOutputFile", "myalg_higgs_to_invisible_{genid}_{prodid}.root"))
+myalg.root_output_file = reco_args.myOutputFile 
 myalg.RecoParticleColl = 'PandoraPFOs'
 myalg.IsolatedLeptonsColl = 'IsolatedLeptons'
 myalg.EventHeaderColl = 'EventHeader'
@@ -118,6 +119,9 @@ myalg.JetFinderColl = 'MyJets'
 myalg.Outputs = "MET"
 myalg.OutputLevel = INFO
 
+
+
+# setting up the jet finder
 MyJetFinder = MarlinProcessorWrapper("MyJetFinder")
 MyJetFinder.ProcessorType = "FastJetProcessor"
 MyJetFinder.Parameters = {{
@@ -155,12 +159,87 @@ l2eConv.collNameMapping = {{
 e2lConv.OutputLevel = INFO
 l2eConv.OutputLevel = INFO
 
-alg_list.extend([MyJetFinder, myalg])
 
-try:
-    io_handler.finalize_converters()
-except Exception:
-    pass
+#MyJetFinder.EDM4hep2LcioTool = e2lConv
+#MyJetFinder.Lcio2EDM4hepTool = l2eConv
+
+
+
+# now the isolated lepton tagger
+
+MyIsolatedLeptonTaggingProcessor = MarlinProcessorWrapper("MyIsolatedLeptonTaggingProcessor")
+MyIsolatedLeptonTaggingProcessor.OutputLevel = INFO
+MyIsolatedLeptonTaggingProcessor.ProcessorType = "IsolatedLeptonTaggingProcessor"
+MyIsolatedLeptonTaggingProcessor.Parameters = {
+                                               "CosConeLarge": ["0.95"],
+                                               "CosConeSmall": ["0.98"],
+                                               "CutOnTheISOElectronMVA": ["2.0"],
+                                               "CutOnTheISOMuonMVA": ["0.7"],
+                                               "DirOfISOElectronWeights": ["/cvmfs/ilc.desy.de/sw/x86_64_gcc82_centos7/v02-02-03/MarlinReco/v01-32/Analysis/IsolatedLeptonTagging/example/isolated_electron_weights"],
+                                               "DirOfISOMuonWeights": ["/cvmfs/ilc.desy.de/sw/x86_64_gcc82_centos7/v02-02-03/MarlinReco/v01-32/Analysis/IsolatedLeptonTagging/example/isolated_muon_weights_woYoke"],
+                                               "InputPandoraPFOsCollection": ["PandoraPFOs"],
+                                               "InputPrimaryVertexCollection": ["PrimaryVertex"],
+                                               "IsSelectingOneIsoLep": ["false"],
+                                               "MaxD0SigForElectron": ["50"],
+                                               "MaxD0SigForMuon": ["20"],
+                                               "MaxEOverPForElectron": ["1.3"],
+                                               "MaxEOverPForMuon": ["0.3"],
+                                               "MaxZ0SigForElectron": ["50"],
+                                               "MaxZ0SigForMuon": ["20"],
+                                               "MinEOverPForElectron": ["0.5"],
+                                               "MinEecalOverTotEForElectron": ["0.9"],
+                                               "MinEyokeForMuon": ["1.2"],
+                                               "MinPForElectron": ["5"],
+                                               "MinPForMuon": ["5"],
+                                               "OutputIsoLeptonsCollection": ["IsolatedLeptons"],
+                                               "OutputPFOsWithoutIsoLepCollection": ["PandoraPFOsWithoutIsoLep"],
+                                               "UseYokeForMuonID": ["false"]
+                                               }
+
+edm4hep2LcioConv = EDM4hep2LcioTool("EDM4hep2Lcio")
+lcio2edm4hepConv = Lcio2EDM4hepTool("Lcio2EDM4hep")
+edm4hep2LcioConv.convertAll = False
+edm4hep2LcioConv.collNameMapping = {
+        'PrimaryVertex':'PrimaryVertex',
+        'PandoraPFOs':'PandoraPFOs',
+        "PandoraClusters": "PandoraClusters",
+        "MarlinTrkTracks": "MarlinTrkTracks"
+      }
+
+
+lcio2edm4hepConv.convertAll = False
+lcio2edm4hepConv.collNameMapping = {
+     'PandoraPFOs': 'PandoraPFOs',
+     'IsolatedLeptons': 'IsolatedLeptons',
+     'PandoraPFOsWithoutIsoLep': 'PandoraPFOsWithoutIsoLep',
+     "PandoraClusters": "PandoraClusters",
+     "MarlinTrkTracks": "MarlinTrkTracks",
+     "MyJets": "MyJets",
+     "PFOsfromJets": "PFOsfromJets"
+     }
+
+
+
+
+#MyIsolatedLeptonTaggingProcessor.EDM4hep2LcioTool = edm4hep2LcioConv
+MyIsolatedLeptonTaggingProcessor.Lcio2EDM4hepTool = lcio2edm4hepConv
+
+MyJetFinder.EDM4hep2LcioTool = edm4hep2LcioConv
+MyJetFinder.Lcio2EDM4hepTool = lcio2edm4hepConv
+
+# Lepton Pairing Processor
+from Configurables import LeptonPairingAlg
+
+MyLeptonPairing = LeptonPairingAlg()
+MyLeptonPairing.RecoParticleColl = 'PandoraPFOs'
+MyLeptonPairing.IsolatedLeptonsColl = 'IsolatedLeptons'
+MyLeptonPairing.PFOsWOIsoLepColl = 'PandoraPFOsWithoutIsoLep'
+MyLeptonPairing.doPhotonRecovery = True
+MyLeptonPairing.diLeptinInvariantMass = 91.1876
+
+alg_list.extend([MyIsolatedLeptonTaggingProcessor, MyLeptonPairing, MyJetFinder, myalg])
+
+io_handler.finalize_converters()
 
 from k4FWCore import ApplicationMgr
 ApplicationMgr( TopAlg = alg_list,
@@ -169,6 +248,7 @@ ApplicationMgr( TopAlg = alg_list,
                 ExtSvc=[evt_svc],
                 OutputLevel=INFO,
                )
+
 '''
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w") as f:
@@ -179,7 +259,7 @@ def _make_output_filename_from_lfn(lfn: str, genid: int, prodid: int, idx: int):
 
 def write_submit_file(path: Path, genid: int, prodid: int, input_files):
     steering_name = f"higgsToInvisible_{genid}_{prodid}.py"
-    output_files = [_make_output_filename_from_lfn(inf, genid, prodid, i+1) for i, inf in enumerate(input_files)]
+    outputFiles = [_make_output_filename_from_lfn(inf, genid, prodid, i+1) for i, inf in enumerate(input_files)]
     content = f'''\
 from DIRAC.Core.Base import Script
 Script.parseCommandLine()
@@ -190,29 +270,54 @@ from ILCDIRAC.Interfaces.API.NewInterface.Applications import GaudiApp
 
 dIlc = DiracILC()
 inputFiles = {input_files}
-outputFiles = {output_files}
+outputFiles = {outputFiles}
+
+# Create matching output file names
+outputFiles = [
+    f"myalg_higgs_to_invisible_{genid}_{prodid}_{{i+1}}.root"
+    for i in range(len(inputFiles))
+]
+
+# --- Split input files into groups of 5
+chunk_size = 5
+input_groups = [
+    inputFiles[i:i+chunk_size] for i in range(0, len(inputFiles), chunk_size)
+]
+
+# --- Create one output file name per job (flat list, not nested)
+split_output = [
+    f"myalg_higgs_to_invisible_{genid}_{prodid}_chunk{{i+1}}.root"
+    for i in range(len(input_groups))
+]
 
 job = UserJob()
 job.setName("htoinv_DST_%n")
 
-# splitting the input files into smaller chunks
-chunk_size = 5  # e.g. 5 input files per job
-input_groups = [inputFiles[i:i+chunk_size] for i in range(0, len(inputFiles), chunk_size)]
-job.setSplitInputData(input_groups)
+# --- Both have same length, so no mismatch
+#job.setSplitParameter("InputData", input_groups)
+job.setSplitParameter("outputFile", split_output)
+
 
 gaudi = GaudiApp()
 gaudi.setExecutableName("k4run")
 gaudi.setVersion("{GAUDI_VERSION}")
 gaudi.setInputFileFlag("--inputFiles")
 gaudi.setOutputFileFlag("--myOutputFile")
-output_files = [f"myalg_higgs_to_invisible_{genid}_{prodid}_{i+1}.root" for i in range(len(input_groups))]
-job.setSplitParameter('myOutputFile', output_files)
-job.setSplitOutputData([[out] for out in output_files],
-                       f"htoinv/ROOT-{genid}-{prodid}",
-                       "CERN-DST-EOS")
-gaudi.setOutputFile("myalg_higgs_to_invisible_{genid}_{prodid}.root")
+
+# --- Use the split output parameter
+job.setSplitParameter("outputFile", split_output)
+gaudi.setOutputFile("%(outputFile)s")
+
+# --- Output location on grid
+job.setSplitOutputData(
+    split_output,
+    OutputPath="htoinv/ROOT-{genid}-{prodid}",
+    OutputSE="CERN-DST-EOS"
+)
+
 gaudi.setNumberOfEvents(-1)
 gaudi.setSteeringFile("{steering_name}")
+
 
 job.append(gaudi)
 
