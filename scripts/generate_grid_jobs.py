@@ -89,8 +89,6 @@ parser_group.add_argument("--cms", action="store", help="Choose a Centre-of-Mass
 
 reco_args = parser.parse_known_args()[0]
 
-print("arguments --------------------> ", reco_args)
-
 alg_list = []
 evt_svc = EventDataSvc("EventDataSvc")
 evt_svc.OutputLevel = INFO
@@ -99,7 +97,9 @@ io_svc = IOSvc()
 
 io_handler = IOHandlerHelper(alg_list, io_svc)
 if getattr(reco_args, "inputFiles", None):
+    print("input file ---------->: ", reco_args.inputFiles)
     io_handler.add_reader(reco_args.inputFiles)
+
 
 from Configurables import HtoInvAlg
 myalg = HtoInvAlg()
@@ -109,6 +109,7 @@ myalg.processName = '{proc}'
 myalg.processID = {prodid}
 myalg.targetLumi = {TARGET_LUMI}
 myalg.root_output_file = getattr(reco_args, "myOutputFile", "myalg_higgs_to_invisible_{genid}_{prodid}.root")
+print("output file --------------->: ", getattr(reco_args, "myOutputFile", "myalg_higgs_to_invisible_{genid}_{prodid}.root"))
 myalg.RecoParticleColl = 'PandoraPFOs'
 myalg.IsolatedLeptonsColl = 'IsolatedLeptons'
 myalg.EventHeaderColl = 'EventHeader'
@@ -174,10 +175,7 @@ ApplicationMgr( TopAlg = alg_list,
         f.write(textwrap.dedent(content))
 
 def _make_output_filename_from_lfn(lfn: str, genid: int, prodid: int, idx: int):
-    raw = lfn.split("LFN:")[-1]
-    basename = raw.split("/")[-1]
-    stem = basename.replace(".slcio", "")
-    return f"myalg_higgs_to_invisible_{genid}_{prodid}_{idx}_{stem}.root"
+    return f"myalg_higgs_to_invisible_{genid}_{prodid}_{idx}.root"
 
 def write_submit_file(path: Path, genid: int, prodid: int, input_files):
     steering_name = f"higgsToInvisible_{genid}_{prodid}.py"
@@ -219,7 +217,8 @@ job.setInputSandbox([
 ])
 job.setOutputSandbox(["*.log", "*.out", "*.err"])
 job.dontPromptMe()
-res = job.submit(dIlc, mode="wms")
+#res = job.submit(dIlc, mode="wms")
+res = job.submit(dIlc, mode="local")
 
 if res.get("OK"):
     print("Successfully submitted job(s):", res["Value"])
