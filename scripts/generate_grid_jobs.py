@@ -297,8 +297,7 @@ gaudi.setExecutableName("k4run")
 gaudi.setVersion("key4hep_250529")
 gaudi.setInputFileFlag("--inputFiles")
 gaudi.setInputFile("%(InputData)s")
-#gaudi.setOutputFile("%(OutputData)s")
-gaudi.setOutputFile("myalg_higgs_to_invisible_{genid}_{prodid}_%n.root")
+gaudi.setOutputFile("myalg_higgs_to_invisible_{genid}_{prodid}.root")
 gaudi.setOutputFileFlag("--myOutputFile")
 gaudi.setNumberOfEvents(-1)
 gaudi.setSteeringFile("{steering_name}")
@@ -332,7 +331,9 @@ def write_master_submit(job_keys):
     lines = ["#!/bin/bash", "# Auto-generated master submission script", "set -euo pipefail", ""]
     for genid, prodid in job_keys:
         lines.append(f"echo 'Submitting GenID {genid}, ProdID {prodid} ...'")
-        lines.append(f"python3 {genid}_{prodid}/submit_grid_{genid}_{prodid}.py\n")
+        lines.append(f"cd {genid}_{prodid}/")
+        lines.append(f"python3 submit_grid_{genid}_{prodid}.py")
+        lines.append(f"cd ../\n")
     with open(script_path, "w") as f:
         f.write("\n".join(lines))
     os.chmod(script_path, 0o755)
