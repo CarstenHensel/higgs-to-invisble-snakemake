@@ -365,7 +365,7 @@ def main():
                 log_lines.append(msg)
                 continue
 
-            outdir = Path(f"{proc}_{genid}_{prodid}")
+            outdir = Path(f"{genid}_{prodid}")
             opt_path = outdir / f"higgsToInvisible_{proc}_{genid}_{prodid}.py"
             sub_path = outdir / f"submit_grid_{proc}_{genid}_{prodid}.py"
 
