@@ -280,7 +280,7 @@ job.setName("htoinv_DST_%n")
 
 # 1) Split input
 #job.setInputData(inputFiles)
-chunk_size = min(4, len(inputFiles))
+chunk_size = min(10, len(inputFiles))
 job.setSplitInputData(inputFiles, numberOfFilesPerJob=chunk_size)
 
 # 2) Output files
@@ -368,7 +368,7 @@ def main():
             opt_path = outdir / f"higgsToInvisible_{proc}_{genid}_{prodid}.py"
             sub_path = outdir / f"submit_grid_{proc}_{genid}_{prodid}.py"
 
-            msg = f"[{timestamp}] Process {}proc}. GenID {genid}, ProdID {prodid} ({proc}) → {len(grouped_lfns[key])} files"
+            msg = f"[{timestamp}] Process {proc}. GenID {genid}, ProdID {prodid} ({proc}) → {len(grouped_lfns[key])} files"
             print(msg)
             log_lines.append(msg)
 
