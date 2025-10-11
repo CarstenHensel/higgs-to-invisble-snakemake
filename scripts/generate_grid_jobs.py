@@ -367,7 +367,7 @@ def main():
 
             outdir = Path(f"{genid}_{prodid}")
             opt_path = outdir / f"higgsToInvisible_{proc}_{genid}_{prodid}.py"
-            sub_path = outdir / f"submit_grid_{proc}_{genid}_{prodid}.py"
+            sub_path = outdir / f"submit_grid_{genid}_{prodid}.py"
 
             msg = f"[{timestamp}] Process {proc}. GenID {genid}, ProdID {prodid} ({proc}) → {len(grouped_lfns[key])} files"
             print(msg)
