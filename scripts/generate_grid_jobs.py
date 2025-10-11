@@ -280,7 +280,7 @@ job.setName("htoinv_DST_%n")
 
 # 1) Split input
 #job.setInputData(inputFiles)
-chunk_size = min(10, len(inputFiles))
+chunk_size = min(20, len(inputFiles))
 job.setSplitInputData(inputFiles, numberOfFilesPerJob=chunk_size)
 
 # 2) Output files
@@ -333,7 +333,8 @@ def write_master_submit(job_keys):
         lines.append(f"echo 'Submitting GenID {genid}, ProdID {prodid} ...'")
         lines.append(f"cd {genid}_{prodid}/")
         lines.append(f"python3 submit_grid_{genid}_{prodid}.py")
-        lines.append(f"cd ../\n")
+        lines.append(f"cd ../")
+        lines.append(f"sleep 10")
     with open(script_path, "w") as f:
         f.write("\n".join(lines))
     os.chmod(script_path, 0o755)
