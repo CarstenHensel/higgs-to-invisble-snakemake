@@ -334,7 +334,7 @@ def write_master_submit(job_keys):
         lines.append(f"cd {genid}_{prodid}/")
         lines.append(f"python3 submit_grid_{genid}_{prodid}.py")
         lines.append(f"cd ../")
-        lines.append(f"sleep 10")
+        lines.append(f"sleep 10\n")
     with open(script_path, "w") as f:
         f.write("\n".join(lines))
     os.chmod(script_path, 0o755)
