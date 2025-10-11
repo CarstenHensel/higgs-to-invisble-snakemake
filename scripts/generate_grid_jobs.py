@@ -259,8 +259,8 @@ ApplicationMgr( TopAlg = alg_list,
 def _make_output_filename_from_lfn(lfn: str, genid: int, prodid: int, idx: int):
     return f"myalg_higgs_to_invisible_{genid}_{prodid}_{idx}.root"
 
-def write_submit_file(path: Path, genid: int, prodid: int, input_files):
-    steering_name = f"higgsToInvisible_{genid}_{prodid}.py"
+def write_submit_file(path: Path, genid: int, prodid: int, proc: str, input_files):
+    steering_name = f"higgsToInvisible_{proc}_{genid}_{prodid}.py"
     output_files = [_make_output_filename_from_lfn(inf, genid, prodid, i+1) for i, inf in enumerate(input_files)]
     content = f'''\
 from DIRAC.Core.Base import Script
@@ -280,13 +280,13 @@ job.setName("htoinv_DST_%n")
 
 # 1) Split input
 #job.setInputData(inputFiles)
-chunk_size = min(5, len(inputFiles))
+chunk_size = min(4, len(inputFiles))
 job.setSplitInputData(inputFiles, numberOfFilesPerJob=chunk_size)
 
 # 2) Output files
 job.setOutputData(
-    ["myalg_higgs_to_invisible_{genid}_{prodid}.root"],
-    OutputPath="htoinv/ROOT-{genid}-{prodid}",
+    ["myalg_higgs_to_invisible_{proc}_{genid}_{prodid}.root"],
+    OutputPath="htoinv/ROOT-{proc}-{genid}-{prodid}",
     OutputSE="CERN-DST-EOS"
 )
 
@@ -297,7 +297,7 @@ gaudi.setExecutableName("k4run")
 gaudi.setVersion("key4hep_250529")
 gaudi.setInputFileFlag("--inputFiles")
 gaudi.setInputFile("%(InputData)s")
-gaudi.setOutputFile("myalg_higgs_to_invisible_{genid}_{prodid}.root")
+gaudi.setOutputFile("myalg_higgs_to_invisible_{proc}_{genid}_{prodid}.root")
 gaudi.setOutputFileFlag("--myOutputFile")
 gaudi.setNumberOfEvents(-1)
 gaudi.setSteeringFile("{steering_name}")
@@ -364,18 +364,18 @@ def main():
                 log_lines.append(msg)
                 continue
 
-            outdir = Path(f"{genid}_{prodid}")
-            opt_path = outdir / f"higgsToInvisible_{genid}_{prodid}.py"
-            sub_path = outdir / f"submit_grid_{genid}_{prodid}.py"
+            outdir = Path(f"{proc}_{genid}_{prodid}")
+            opt_path = outdir / f"higgsToInvisible_{proc}_{genid}_{prodid}.py"
+            sub_path = outdir / f"submit_grid_{proc}_{genid}_{prodid}.py"
 
-            msg = f"[{timestamp}] GenID {genid}, ProdID {prodid} ({proc}) → {len(grouped_lfns[key])} files"
+            msg = f"[{timestamp}] Process {}proc}. GenID {genid}, ProdID {prodid} ({proc}) → {len(grouped_lfns[key])} files"
             print(msg)
             log_lines.append(msg)
 
             if not args.dry_run:
                 outdir.mkdir(parents=True, exist_ok=True)
                 write_option_file(opt_path, genid, prodid, proc, xsec, nevts)
-                write_submit_file(sub_path, genid, prodid, grouped_lfns[key])
+                write_submit_file(sub_path, genid, prodid, proc, grouped_lfns[key])
                 job_keys.append(key)
 
     if not args.dry_run and job_keys:
